@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Hotel Room Booking</title><link rel="stylesheet" href="style.css"></head>
+<body>
+<!-- Top Navigation Bar for Seamless Hub Access -->
+<div style="background:#0f172a; color:#f8fafc; padding:10px 16px; font-family:sans-serif; font-size:0.85rem; display:flex; justify-content:space-between; align-items:center; border-bottom:2px solid #0284c7; position:sticky; top:0; z-index:9999;">
+    <div>
+        <a href="../index.html" style="color:#38bdf8; text-decoration:none; font-weight:bold; display:inline-flex; align-items:center; gap:6px;">
+            🏠 ← Back to All Experiments (1-46)
+        </a>
+    </div>
+    <div>
+        <strong>Experiment 02:</strong> Hotel Room Booking
+    </div>
+    <div style="font-size:0.75rem; color:#94a3b8;">
+        CSA4303 IP Lab • SIMATS
+    </div>
+</div>
+<header><h1>Hotel Room Booking</h1><p>Search hotels/rooms by destination, dates and guests; view room types, amenities, prices and reviews; make, edit or cancel demo bookings.</p><nav><a href="#features">Features</a><a href="#main">Explore / Book</a><a href="#records">My dashboard</a><a href="#admin">Admin demo</a></nav></header>
+<main><div class="hero"><h2>Welcome</h2><p>This is a responsive front-end lab demonstration based on Experiment 02. Use the forms to try the workflow.</p><span class="tag">HTML · CSS · JavaScript</span></div>
+<section id="features"><h2>Key features</h2><div class="grid"><article class="card"><h3>Room availability</h3><p class="muted">Choose check-in/check-out dates and guest count to see sample room options.</p></article><article class="card"><h3>Guest dashboard</h3><p class="muted">Create demo bookings, view history, and reschedule or cancel subject to the three-day-before-arrival rule.</p></article><article class="card"><h3>Admin panel</h3><p class="muted">Adjust sample room prices and quantities.</p></article></div></section>
+<div id="main" style="display:grid;gap:16px;margin-top:20px">
+<section class="panel"><h2>Find a room</h2><form id="searchForm" class="grid"><div><label>Destination</label><input id="destination" required placeholder="City or hotel"></div><div><label>Check-in</label><input id="checkin" type="date" required></div><div><label>Check-out</label><input id="checkout" type="date" required></div><div><label>Guests</label><input id="guests" type="number" min="1" value="2"></div><button>Search rooms</button></form><div id="searchResults"></div></section>
+<section class="panel"><h2>Make a demo booking</h2><form id="demoForm"><label>Guest / hotel / room type</label><input name="title" required placeholder="Guest - Deluxe Room"><label>Booking dates and details</label><input name="detail" required placeholder="Destination, check-in and check-out"><input type="hidden" name="status" value="Booking request"><button>Book room (demo)</button></form></section></div>
+<section id="records" class="panel" style="margin-top:18px"><h2>My dashboard / saved records</h2><div id="records"></div><div class="actions"><button class="secondary" onclick="resetDemo()">Clear demo data</button></div></section>
+<section id="admin" class="panel" style="margin-top:18px"><h2>Admin panel (front-end demo)</h2><p class="muted">Administrative changes below are stored only in this browser. No real account or server is connected.</p><form id="adminForm"><label>Item / setting</label><input name="title" required placeholder="Service, room, bus, product, schedule..."><label>Details / updated value</label><input name="detail" required placeholder="Enter details"><input type="hidden" name="status" value="Admin update"><button>Save admin update</button></form></section>
+<div id="message"></div><div class="notice warning"><strong>Important:</strong> This is a client-side academic demonstration. Real authentication, database storage, live inventory, payment gateway, email/SMS notifications and production security require a server and trusted service integrations. Do not enter real passwords or payment details.</div>
+</main><footer>Internet Programming Lab · Experiment 02 · Responsive HTML/CSS/JavaScript demo</footer><script src="script.js"></script></body></html>

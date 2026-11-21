@@ -1,0 +1,42 @@
+<!doctype html><html><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><link rel=stylesheet href=../style.css></head><body>
+<!-- Top Navigation Bar for Seamless Hub Access -->
+<div style="background:#0f172a; color:#f8fafc; padding:10px 16px; font-family:sans-serif; font-size:0.85rem; display:flex; justify-content:space-between; align-items:center; border-bottom:2px solid #0284c7; position:sticky; top:0; z-index:9999;">
+    <div>
+        <a href="../index.html" style="color:#38bdf8; text-decoration:none; font-weight:bold; display:inline-flex; align-items:center; gap:6px;">
+            🏠 ← Back to All Experiments (1-46)
+        </a>
+    </div>
+    <div>
+        <strong>Experiment 14:</strong> ReNewMarket Second-Hand Goods Marketplace
+    </div>
+    <div style="font-size:0.75rem; color:#94a3b8;">
+        CSA4303 IP Lab • SIMATS
+    </div>
+</div>
+<script src=../common.js></script><script>
+const CAT=Store('rm:cats',['Electronics','Furniture','Clothing','Collectibles'].map(name=>({name}))),
+IT=Store('rm:items',[{title:'Used Study Table',cat:'Furniture',price:2500,cond:'Good',desc:'Wooden, 2 drawers',sellerId:'demo',sellerName:'ReNew Demo',status:'Available'},{title:'Bluetooth Headphones',cat:'Electronics',price:1200,cond:'Like new',desc:'6 months old, with box',sellerId:'demo',sellerName:'ReNew Demo',status:'Available'},{title:'Vintage Coin Set',cat:'Collectibles',price:3000,cond:'Fair',desc:'50 old coins',sellerId:'demo',sellerName:'ReNew Demo',status:'Available'}]),
+OF=Store('rm:offers',[]),OR=Store('rm:orders',[]),LS=['Placed','Shipped','Received'];let U,F={};
+const cats=()=>CAT.all().map(c=>c.name),av=()=>IT.all().filter(i=>i.status=='Available');
+function browse(){const l=av().filter(i=>(!F.cat||i.cat==F.cat)&&(!F.q||(i.title+i.desc).toLowerCase().includes(F.q.toLowerCase()))&&(!F.max||i.price<=+F.max));
+ view(`<div class=card><h2>Browse pre-loved items</h2><form id=f class=grid><label>Keyword<input name=q value="${esc(F.q||'')}"></label><label>Category<select name=cat><option value="">All</option>${opts(cats(),F.cat)}</select></label><label>Max price<input type=number name=max value="${F.max||''}"></label><button>Search</button></form></div><div class=pg>${l.map(i=>`<div class=pc><b>${esc(i.title)}</b><small class=muted>${esc(i.cat)} · ${esc(i.cond)}</small><div class=pr>${inr(i.price)}</div><small>${esc(i.desc)}</small><small>Seller: ${esc(i.sellerName)}</small>${i.sellerId==U.id?'<small>(your listing)</small>':`<div><button onclick="S.buy('${i.id}')">Buy now</button> <button onclick="S.offer('${i.id}')">Make offer</button></div>`}</div>`).join('')||'<p>No items found.</p>'}</div>`);onForm('#f',v=>{F=v;browse()})}
+function sell(){const my=IT.all().filter(i=>i.sellerId==U.id),mo=OF.all().filter(o=>my.some(i=>i.id==o.itemId)),mo2=OR.all().filter(o=>o.sellerId==U.id);
+ view(`<div class=card><h2>Create listing</h2><form id=f class=grid><label>Title<input name=title required></label><label>Category<select name=cat>${opts(cats())}</select></label><label>Price (₹)<input type=number name=price required></label><label>Condition<select name=cond>${opts(['Like new','Good','Fair'])}</select></label><label>Description<input name=desc required></label><button>List item</button></form></div>
+ <div class=card><h2>My listings</h2>${table([['Item',i=>esc(i.title)],['Price',i=>inr(i.price)],['Status',i=>i.status],['',i=>`<button onclick="S.delI('${i.id}')">Delete</button>`]],my)}</div>
+ <div class=card><h2>Offers received</h2>${table([['Item',o=>esc(IT.get(o.itemId)?.title)],['Buyer',o=>esc(o.buyerName)],['Offer',o=>inr(o.amount)],['Status',o=>o.status],['',o=>o.status=='Pending'?`<button onclick="S.offSt('${o.id}','Accepted')">Accept</button> <button onclick="S.offSt('${o.id}','Rejected')">Reject</button>`:'']],mo)}</div>
+ <div class=card><h2>Orders to ship</h2>${table([['Item',o=>esc(o.title)],['Buyer',o=>esc(o.buyerName)],['Address',o=>esc(o.address)],['Status',o=>o.status],['',o=>o.status=='Placed'?`<button onclick="S.ship('${o.id}')">Mark shipped</button>`:'']],mo2)}</div>`);onForm('#f',v=>{IT.add({...v,price:+v.price,sellerId:U.id,sellerName:U.name,status:'Available'});toast('Item listed');sell()})}
+function orders(){view(`<div class=card><h2>My orders</h2>${table([['Item',o=>esc(o.title)],['Price',o=>inr(o.price)],['Date',o=>o.date],['Status',o=>o.status],['',o=>o.status=='Shipped'?`<button onclick="S.recv('${o.id}')">Mark received</button>`:'']],OR.all().filter(o=>o.buyerId==U.id).reverse())}</div><div class=card><h2>My offers</h2>${table([['Item',o=>esc(IT.get(o.itemId)?.title||'(removed)')],['Offer',o=>inr(o.amount)],['Status',o=>o.status],['',o=>o.status=='Accepted'&&IT.get(o.itemId)?.status=='Available'?`<button onclick="S.buy('${o.itemId}',${o.amount})">Buy at offer price</button>`:'']],OF.all().filter(o=>o.buyerId==U.id))}</div>`)}
+function aUsers(){view(`<div class=card><h2>Create user account</h2><form id=f class=grid><label>Name<input name=name required></label><label>Username<input name=username required></label><label>Password<input name=password required></label><button>Create</button></form></div><div class=card><h2>Users</h2>${table([['Name',u=>esc(u.name)],['Username',u=>esc(u.username)],['',u=>`<button onclick="S.editU('${u.id}')">Edit</button> <button onclick="S.delU('${u.id}')">Delete</button>`]],Auth.list().filter(u=>u.role=='user'))}</div>`);
+ onForm('#f',v=>{if(Auth.find(v.username,'user'))return toast('Username taken');Auth.add({...v,role:'user'});aUsers()})}
+function aCats(){view(`<div class=card><h2>Categories</h2><form id=f class=grid><label>New category<input name=name required></label><button>Add</button></form>${table([['Category',c=>esc(c.name)],['',c=>`<button onclick="S.delC('${c.id}')">Delete</button>`]],CAT.all())}</div>`);onForm('#f',v=>{CAT.add(v);aCats()})}
+function aItems(){view(`<div class=card><h2>Commodities</h2>${table([['Item',i=>esc(i.title)],['Category',i=>esc(i.cat)],['Price',i=>inr(i.price)],['Seller',i=>esc(i.sellerName)],['Status',i=>i.status],['',i=>`<button onclick="S.editI('${i.id}')">Edit</button> <button onclick="S.delI2('${i.id}')">Delete</button>`]],IT.all())}</div>`)}
+function aOrders(){view(`<div class=card><h2>Orders & logistics</h2>${table([['Item',o=>esc(o.title)],['Buyer',o=>esc(o.buyerName)],['Price',o=>inr(o.price)],['Logistics status',o=>`<select onchange="S.ost('${o.id}',this.value)">${opts(LS,o.status)}</select>`],['',o=>`<button onclick="S.delO('${o.id}')">Delete</button>`]],OR.all())}</div>`)}
+const order=(id,price)=>{const i=IT.get(id),a=prompt('Delivery / pick-up address');if(a){OR.add({itemId:id,title:i.title,price,buyerId:U.id,buyerName:U.name,sellerId:i.sellerId,address:a,status:'Placed',date:today()});IT.upd(id,{status:'Sold'});toast('Order placed');go(2)}};
+window.S={buy(id,p){order(id,p||IT.get(id).price)},offer(id){const a=+prompt('Your offer (₹)');if(a>0){OF.add({itemId:id,buyerId:U.id,buyerName:U.name,amount:a,status:'Pending'});toast('Offer sent to seller')}},
+ delI(id){IT.del(id);sell()},offSt(id,s){OF.upd(id,{status:s});sell()},ship(id){OR.upd(id,{status:'Shipped'});sell()},recv(id){OR.upd(id,{status:'Received'});orders()},
+ editU(id){const u=Auth.list().find(x=>x.id==id),n=prompt('Name',u.name),p=prompt('New password (blank = keep)');if(n)Auth.update(id,{name:n,...(p?{password:p}:{})});aUsers()},delU(id){if(confirm('Delete user?')){Auth.remove(id);aUsers()}},
+ delC(id){CAT.del(id);aCats()},editI(id){const i=IT.get(id),t=prompt('Title',i.title),p=+prompt('Price',i.price);if(t&&p>0)IT.upd(id,{title:t,price:p});aItems()},delI2(id){IT.del(id);aItems()},
+ ost(id,s){OR.upd(id,{status:s});toast('Status updated')},delO(id){if(confirm('Delete order?')){OR.del(id);aOrders()}}};
+boot({app:'renewmarket',title:'ReNewMarket – Second-hand Marketplace',roles:[{id:'user',label:'Buyer / Seller',reg:true},{id:'admin',label:'Admin'}],seed:[{username:'admin',password:'admin123',role:'admin',name:'Admin'}],hint:'Admin login: admin / admin123',
+ menu:{user:u=>{U=u;return[['Browse',browse],['Sell',sell],['Orders & offers',orders]]},admin:()=>[['Users',aUsers],['Categories',aCats],['Commodities',aItems],['Orders',aOrders]]}});
+</script></body></html>

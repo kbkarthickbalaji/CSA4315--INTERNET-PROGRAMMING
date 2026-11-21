@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ko-Matha - Farm Fresh A2 Milk & Dairy</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<!-- Top Navigation Bar for Seamless Hub Access -->
+<div style="background:#0f172a; color:#f8fafc; padding:10px 16px; font-family:sans-serif; font-size:0.85rem; display:flex; justify-content:space-between; align-items:center; border-bottom:2px solid #0284c7; position:sticky; top:0; z-index:9999;">
+    <div>
+        <a href="../index.html" style="color:#38bdf8; text-decoration:none; font-weight:bold; display:inline-flex; align-items:center; gap:6px;">
+            🏠 ← Back to All Experiments (1-46)
+        </a>
+    </div>
+    <div>
+        <strong>Experiment 31:</strong> Ko-Matha Smart Dairy Farm Website
+    </div>
+    <div style="font-size:0.75rem; color:#94a3b8;">
+        CSA4303 IP Lab • SIMATS
+    </div>
+</div>
+
+    <header class="header">
+        <h1>🐄 Ko-Matha <span>Smart Dairy</span></h1>
+        <p>100% Pure Grass-Fed A2 Desi Cow Milk &amp; Traditional Dairy Products</p>
+    </header>
+    <main class="container">
+        <section class="card">
+            <h3>Start Daily Morning Milk Subscription</h3>
+            <form onsubmit="subscribeMilk(event)">
+                <div class="row">
+                    <div>
+                        <label>Delivery Name *</label>
+                        <input type="text" id="subName" required placeholder="Customer Full Name">
+                    </div>
+                    <div>
+                        <label>Contact Phone *</label>
+                        <input type="tel" id="subPhone" required pattern="[0-9]{10}" placeholder="9876543210">
+                    </div>
+                </div>
+                <div class="row">
+                    <div>
+                        <label>Daily Milk Quantity *</label>
+                        <select id="subLitres" onchange="calcMonthlyCost()">
+                            <option value="1">1 Litre / Day (₹75/day)</option>
+                            <option value="2" selected>2 Litres / Day (₹150/day)</option>
+                            <option value="3">3 Litres / Day (₹225/day)</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label>Delivery Time Slot *</label>
+                        <select id="subSlot"><option>Early Morning (05:30 AM - 06:30 AM)</option><option>Morning (06:30 AM - 07:30 AM)</option></select>
+                    </div>
+                </div>
+                <div>
+                    <label>Full Delivery Address *</label>
+                    <input type="text" id="subAddress" required placeholder="Flat No, Apartment, Street...">
+                </div>
+                <div style="margin-top:12px; font-weight:bold; color:#15803d;">
+                    Estimated Monthly Total: <span id="subTotal">₹4,500</span> (30 Days)
+                </div>
+                <button type="submit" class="btn btn-primary" style="margin-top:12px;">Activate Daily Delivery Subscription</button>
+            </form>
+        </section>
+    </main>
+    <div id="toast" class="toast"></div>
+    <script src="script.js"></script>
+</body>
+</html>

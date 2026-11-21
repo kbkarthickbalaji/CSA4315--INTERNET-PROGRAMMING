@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BookHaven - Curated Literature & Academic Books</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<!-- Top Navigation Bar for Seamless Hub Access -->
+<div style="background:#0f172a; color:#f8fafc; padding:10px 16px; font-family:sans-serif; font-size:0.85rem; display:flex; justify-content:space-between; align-items:center; border-bottom:2px solid #0284c7; position:sticky; top:0; z-index:9999;">
+    <div>
+        <a href="../index.html" style="color:#38bdf8; text-decoration:none; font-weight:bold; display:inline-flex; align-items:center; gap:6px;">
+            🏠 ← Back to All Experiments (1-46)
+        </a>
+    </div>
+    <div>
+        <strong>Experiment 37:</strong> BookHaven Online Bookstore
+    </div>
+    <div style="font-size:0.75rem; color:#94a3b8;">
+        CSA4303 IP Lab • SIMATS
+    </div>
+</div>
+
+    <header class="header">
+        <h1>📖 Book<span>Haven</span></h1>
+        <div class="cart-badge" onclick="checkoutBooks()">🛒 Cart: <span id="cartCount">0</span> books</div>
+    </header>
+    <main class="container">
+        <section class="bestseller-banner">
+            <h2>Featured Bestseller of the Week</h2>
+            <p>"Clean Code: A Handbook of Agile Software Craftsmanship" by Robert C. Martin</p>
+        </section>
+        <div class="book-grid" id="bookGrid"></div>
+    </main>
+    <div id="toast" class="toast"></div>
+    <script src="script.js"></script>
+</body>
+</html>

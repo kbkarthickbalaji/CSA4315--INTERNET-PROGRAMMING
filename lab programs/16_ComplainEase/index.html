@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ComplainEase - Grievance Redressal Portal</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<!-- Top Navigation Bar for Seamless Hub Access -->
+<div style="background:#0f172a; color:#f8fafc; padding:10px 16px; font-family:sans-serif; font-size:0.85rem; display:flex; justify-content:space-between; align-items:center; border-bottom:2px solid #0284c7; position:sticky; top:0; z-index:9999;">
+    <div>
+        <a href="../index.html" style="color:#38bdf8; text-decoration:none; font-weight:bold; display:inline-flex; align-items:center; gap:6px;">
+            🏠 ← Back to All Experiments (1-46)
+        </a>
+    </div>
+    <div>
+        <strong>Experiment 16:</strong> ComplainEase Complaint Management System
+    </div>
+    <div style="font-size:0.75rem; color:#94a3b8;">
+        CSA4303 IP Lab • SIMATS
+    </div>
+</div>
+
+    <header class="app-header">
+        <div class="brand">
+            <span class="logo">⚖️</span>
+            <h1>Complain<span>Ease</span></h1>
+        </div>
+        <nav class="nav-tabs">
+            <button class="tab-btn active" onclick="switchTab('lodge')">Lodge Complaint</button>
+            <button class="tab-btn" onclick="switchTab('track')">Track Status</button>
+            <button class="tab-btn" onclick="switchTab('admin')">Admin Desk</button>
+        </nav>
+    </header>
+
+    <main class="container">
+        <!-- Lodge Section -->
+        <section id="lodge-tab" class="card tab-content active">
+            <h2>Lodge a New Grievance</h2>
+            <p class="subtitle">Submit civic issues directly to municipal departments with real-time tracking ID.</p>
+            <form id="complaintForm" onsubmit="submitComplaint(event)">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Complainant Full Name *</label>
+                        <input type="text" id="compName" required placeholder="e.g. Karthick Balaji">
+                    </div>
+                    <div class="form-group">
+                        <label>Phone Number (10 Digits) *</label>
+                        <input type="tel" id="compPhone" required pattern="[0-9]{10}" placeholder="9876543210">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Department Category *</label>
+                        <select id="compCategory" required>
+                            <option value="">-- Select Category --</option>
+                            <option value="Roads & Transport">Roads & Transport (Potholes, Signals)</option>
+                            <option value="Water Supply">Water Supply & Drainage</option>
+                            <option value="Electricity">Electricity & Street Lights</option>
+                            <option value="Public Health">Public Health & Sanitation</option>
+                            <option value="Town Planning">Town Planning & Illegal Encroachment</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Urgency Level *</label>
+                        <select id="compUrgency">
+                            <option value="Low">Low - Normal Routine</option>
+                            <option value="Medium" selected>Medium - Attention Needed</option>
+                            <option value="High">High - Critical Safety Hazard</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Incident Location / Ward Number *</label>
+                    <input type="text" id="compLocation" required placeholder="e.g. Ward 42, Main Road Junction, Saveetha Nagar">
+                </div>
+
+                <div class="form-group">
+                    <label>Complaint Details & Description *</label>
+                    <textarea id="compDesc" rows="4" required placeholder="Provide specific details about the issue..."></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Submit Complaint & Generate Token</button>
+            </form>
+        </section>
+
+        <!-- Track Section -->
+        <section id="track-tab" class="card tab-content">
+            <h2>Track Existing Complaint Status</h2>
+            <div class="search-box">
+                <input type="text" id="trackInput" placeholder="Enter Complaint Token (e.g. CMP-101)">
+                <button type="button" class="btn btn-secondary" onclick="trackComplaint()">Search</button>
+            </div>
+            <div id="trackResult" class="result-area"></div>
+        </section>
+
+        <!-- Admin Section -->
+        <section id="admin-tab" class="card tab-content">
+            <div class="admin-header">
+                <h2>Administrative Redressal Console</h2>
+                <div class="admin-stats">
+                    <span id="statTotal" class="badge">Total: 0</span>
+                    <span id="statPending" class="badge badge-warning">Pending: 0</span>
+                    <span id="statResolved" class="badge badge-success">Resolved: 0</span>
+                </div>
+            </div>
+            <div class="table-responsive">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Token ID</th>
+                            <th>Citizen</th>
+                            <th>Department</th>
+                            <th>Location</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="adminTableBody"></tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <div id="toast" class="toast"></div>
+    <script src="script.js"></script>
+</body>
+</html>

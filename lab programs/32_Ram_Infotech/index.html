@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ram Infotech - Laptop Sales & Service</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<!-- Top Navigation Bar for Seamless Hub Access -->
+<div style="background:#0f172a; color:#f8fafc; padding:10px 16px; font-family:sans-serif; font-size:0.85rem; display:flex; justify-content:space-between; align-items:center; border-bottom:2px solid #0284c7; position:sticky; top:0; z-index:9999;">
+    <div>
+        <a href="../index.html" style="color:#38bdf8; text-decoration:none; font-weight:bold; display:inline-flex; align-items:center; gap:6px;">
+            🏠 ← Back to All Experiments (1-46)
+        </a>
+    </div>
+    <div>
+        <strong>Experiment 32:</strong> Ram Infotech Laptop Sales & Services
+    </div>
+    <div style="font-size:0.75rem; color:#94a3b8;">
+        CSA4303 IP Lab • SIMATS
+    </div>
+</div>
+
+    <header class="header">
+        <h1>💻 Ram <span>Infotech</span></h1>
+        <p>Expert Multi-Brand Laptop Sales, Chip-Level Repairs &amp; Upgrades</p>
+    </header>
+    <main class="container">
+        <section class="card">
+            <h3>Book Laptop Service / Track Job Sheet</h3>
+            <form onsubmit="bookService(event)">
+                <div class="row">
+                    <div>
+                        <label>Laptop Brand &amp; Model *</label>
+                        <input type="text" id="lapModel" required placeholder="e.g. Dell Inspiron 15 / HP Pavilion">
+                    </div>
+                    <div>
+                        <label>Hardware / OS Problem *</label>
+                        <select id="lapIssue">
+                            <option>Display Screen Damage / Lines</option>
+                            <option>Battery Replacement / Not Charging</option>
+                            <option>RAM / NVMe SSD Speed Upgrade</option>
+                            <option>Motherboard Chip-Level No Power</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div>
+                        <label>Customer Name *</label>
+                        <input type="text" id="custName" required placeholder="Your Name">
+                    </div>
+                    <div>
+                        <label>Phone Number *</label>
+                        <input type="tel" id="custPhone" required pattern="[0-9]{10}" placeholder="9876543210">
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary">Generate Service Job Sheet Token</button>
+            </form>
+        </section>
+        <section class="card" style="margin-top:20px;">
+            <h3>Active Service Tickets</h3>
+            <div id="serviceQueue"></div>
+        </section>
+    </main>
+    <div id="toast" class="toast"></div>
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gourmet Haven - Modern Fine Dining</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<!-- Top Navigation Bar for Seamless Hub Access -->
+<div style="background:#0f172a; color:#f8fafc; padding:10px 16px; font-family:sans-serif; font-size:0.85rem; display:flex; justify-content:space-between; align-items:center; border-bottom:2px solid #0284c7; position:sticky; top:0; z-index:9999;">
+    <div>
+        <a href="../index.html" style="color:#38bdf8; text-decoration:none; font-weight:bold; display:inline-flex; align-items:center; gap:6px;">
+            🏠 ← Back to All Experiments (1-46)
+        </a>
+    </div>
+    <div>
+        <strong>Experiment 39:</strong> Gourmet Haven Fine Dining Restaurant
+    </div>
+    <div style="font-size:0.75rem; color:#94a3b8;">
+        CSA4303 IP Lab • SIMATS
+    </div>
+</div>
+
+    <header class="header">
+        <h1>Gourmet <span>Haven</span></h1>
+        <p>Contemporary Culinary Artistry &amp; Artisan Tasting Menus</p>
+    </header>
+    <main class="container">
+        <section class="card">
+            <h3>Reserve a Chef's Table</h3>
+            <form onsubmit="reserveGourmet(event)">
+                <div class="row">
+                    <input type="text" id="gName" required placeholder="Guest Name">
+                    <input type="datetime-local" id="gTime" required>
+                    <button type="submit" class="btn">Reserve Table</button>
+                </div>
+            </form>
+        </section>
+        <section class="card" style="margin-top:20px;">
+            <h3>Seasonal Tasting Menu</h3>
+            <div class="menu-grid">
+                <div class="menu-item"><h4>Truffle Risotto</h4><p>Arborio rice, wild morels, aged parmesan</p><strong>₹850</strong></div>
+                <div class="menu-item"><h4>Pan-Seared Sea Bass</h4><p>Saffron foam, buttered asparagus</p><strong>₹1,200</strong></div>
+                <div class="menu-item"><h4>Belgian Dark Fondant</h4><p>Warm molten center, vanilla bean gelato</p><strong>₹450</strong></div>
+            </div>
+        </section>
+    </main>
+    <div id="toast" class="toast"></div>
+    <script src="script.js"></script>
+</body>
+</html>

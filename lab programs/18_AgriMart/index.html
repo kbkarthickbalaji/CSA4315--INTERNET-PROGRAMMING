@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgriMart - Farmer Supplies & Equipment</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<!-- Top Navigation Bar for Seamless Hub Access -->
+<div style="background:#0f172a; color:#f8fafc; padding:10px 16px; font-family:sans-serif; font-size:0.85rem; display:flex; justify-content:space-between; align-items:center; border-bottom:2px solid #0284c7; position:sticky; top:0; z-index:9999;">
+    <div>
+        <a href="../index.html" style="color:#38bdf8; text-decoration:none; font-weight:bold; display:inline-flex; align-items:center; gap:6px;">
+            🏠 ← Back to All Experiments (1-46)
+        </a>
+    </div>
+    <div>
+        <strong>Experiment 18:</strong> AgriMart Agricultural Supplies Platform
+    </div>
+    <div style="font-size:0.75rem; color:#94a3b8;">
+        CSA4303 IP Lab • SIMATS
+    </div>
+</div>
+
+    <header class="header">
+        <div class="brand">🌱 Agri<span>Mart</span></div>
+        <div class="cart-pill" onclick="toggleCart()">🛒 Cart: <span id="cartCount">0</span> items</div>
+    </header>
+    <main class="container">
+        <div class="hero">
+            <h2>Government-Subsidized Agricultural Store</h2>
+            <p>Direct from verified manufacturers to Indian farmers at subsidized fair-trade prices.</p>
+        </div>
+        <div class="filter-bar">
+            <button class="filter-btn active" onclick="filterProducts('All')">All Products</button>
+            <button class="filter-btn" onclick="filterProducts('Seeds')">Hybrid Seeds</button>
+            <button class="filter-btn" onclick="filterProducts('Fertilizers')">Organic Fertilizers</button>
+            <button class="filter-btn" onclick="filterProducts('Pesticides')">Crop Protection</button>
+            <button class="filter-btn" onclick="filterProducts('Tools')">Equipment & Tools</button>
+        </div>
+        <div id="productGrid" class="product-grid"></div>
+    </main>
+    <aside id="cartDrawer" class="cart-drawer">
+        <div class="cart-header">
+            <h3>Farmer Order Basket</h3>
+            <button onclick="toggleCart()">✕</button>
+        </div>
+        <div id="cartItems" class="cart-body"></div>
+        <div class="cart-footer">
+            <div class="total-row">Total: <strong id="cartTotal">₹0</strong></div>
+            <button class="btn btn-primary" onclick="checkout()">Proceed to Subsidized Checkout</button>
+        </div>
+    </aside>
+    <div id="toast" class="toast"></div>
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RoutePass - Stage Based Bus Transit Pass</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<!-- Top Navigation Bar for Seamless Hub Access -->
+<div style="background:#0f172a; color:#f8fafc; padding:10px 16px; font-family:sans-serif; font-size:0.85rem; display:flex; justify-content:space-between; align-items:center; border-bottom:2px solid #0284c7; position:sticky; top:0; z-index:9999;">
+    <div>
+        <a href="../index.html" style="color:#38bdf8; text-decoration:none; font-weight:bold; display:inline-flex; align-items:center; gap:6px;">
+            🏠 ← Back to All Experiments (1-46)
+        </a>
+    </div>
+    <div>
+        <strong>Experiment 35:</strong> Route Bus Pass System
+    </div>
+    <div style="font-size:0.75rem; color:#94a3b8;">
+        CSA4303 IP Lab • SIMATS
+    </div>
+</div>
+
+    <header class="header">
+        <h1>🚌 Route<span>Pass</span></h1>
+        <p>Specific Transit Route &amp; Stage Concession Calculator</p>
+    </header>
+    <main class="container">
+        <section class="card">
+            <h3>Calculate Specific Route Monthly Pass</h3>
+            <form onsubmit="calcRoute(event)">
+                <div class="row">
+                    <div>
+                        <label>Origin Stage *</label>
+                        <select id="stageFrom" onchange="updateStages()"><option value="0">Central Bus Terminus</option><option value="4">Koyambedu CMBT</option><option value="8">Poonamallee Depot</option></select>
+                    </div>
+                    <div>
+                        <label>Destination Stage *</label>
+                        <select id="stageTo" onchange="updateStages()"><option value="12" selected>Saveetha University Campus (Thandalam)</option><option value="16">Sriperumbudur Tech Park</option></select>
+                    </div>
+                </div>
+                <div style="background:#e0f2fe; padding:12px; border-radius:6px; margin:12px 0; font-size:0.9rem;">
+                    Total Transit Distance: <strong id="stageDist">12 Stages (~24 km)</strong> | Fare: <strong id="stageCost">₹600 / Month</strong>
+                </div>
+                <button type="submit" class="btn btn-primary">Issue Route Bus Pass</button>
+            </form>
+        </section>
+    </main>
+    <div id="toast" class="toast"></div>
+    <script src="script.js"></script>
+</body>
+</html>

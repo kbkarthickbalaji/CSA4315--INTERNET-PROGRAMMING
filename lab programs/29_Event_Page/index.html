@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>InnovateX 2026 - International Tech Symposium</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<!-- Top Navigation Bar for Seamless Hub Access -->
+<div style="background:#0f172a; color:#f8fafc; padding:10px 16px; font-family:sans-serif; font-size:0.85rem; display:flex; justify-content:space-between; align-items:center; border-bottom:2px solid #0284c7; position:sticky; top:0; z-index:9999;">
+    <div>
+        <a href="../index.html" style="color:#38bdf8; text-decoration:none; font-weight:bold; display:inline-flex; align-items:center; gap:6px;">
+            🏠 ← Back to All Experiments (1-46)
+        </a>
+    </div>
+    <div>
+        <strong>Experiment 29:</strong> Event Page Website Design
+    </div>
+    <div style="font-size:0.75rem; color:#94a3b8;">
+        CSA4303 IP Lab • SIMATS
+    </div>
+</div>
+
+    <header class="hero">
+        <span class="tag">SAVEETHA / SIMATS ENGINEERING PRESENTS</span>
+        <h1>Innovate<span>X</span> 2026</h1>
+        <p>National Conference on Next-Gen Web, Cloud Architectures &amp; Applied AI</p>
+        <div class="event-meta">📅 November 28, 2026 | 📍 SIMATS Grand Auditorium, Chennai</div>
+    </header>
+    <main class="container">
+        <section class="card">
+            <h3>Distinguished Keynote Speakers</h3>
+            <div class="speaker-grid">
+                <div class="speaker-card">
+                    <div class="avatar">👨‍🏫</div>
+                    <h4>Dr. Krishnaraj Mony</h4>
+                    <small>Associate Professor / CSE</small>
+                    <p style="font-size:0.8rem; color:#64748b;">Keynote: Evolution of High-Performance Web Architectures</p>
+                </div>
+                <div class="speaker-card">
+                    <div class="avatar">👩‍💻</div>
+                    <h4>Dr. Sangeetha Raman</h4>
+                    <small>AI Systems Architect</small>
+                    <p style="font-size:0.8rem; color:#64748b;">Keynote: Real-Time Multimedia Services on Cloud</p>
+                </div>
+            </div>
+        </section>
+        <section class="card" style="margin-top:20px;">
+            <h3>Symposium Agenda &amp; Timetable</h3>
+            <ul class="timeline">
+                <li><strong>09:30 AM:</strong> Inauguration &amp; Keynote Address</li>
+                <li><strong>11:00 AM:</strong> Track 1: Internet Programming &amp; Distributed Systems</li>
+                <li><strong>01:00 PM:</strong> Networking Lunch</li>
+                <li><strong>02:00 PM:</strong> Capstone Project Demonstrations &amp; Awards</li>
+            </ul>
+        </section>
+        <section class="card" style="margin-top:20px;">
+            <h3>Delegate Registration</h3>
+            <form onsubmit="registerDelegate(event)">
+                <input type="text" id="delName" required placeholder="Delegate Full Name" style="margin-bottom:10px;">
+                <input type="text" id="delCollege" required placeholder="College / Institution" style="margin-bottom:10px;">
+                <button type="submit" class="btn btn-primary">Register Free Student Pass</button>
+            </form>
+        </section>
+    </main>
+    <div id="toast" class="toast"></div>
+    <script src="script.js"></script>
+</body>
+</html>

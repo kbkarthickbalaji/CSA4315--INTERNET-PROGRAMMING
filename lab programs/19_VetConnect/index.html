@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VetConnect - Animal Health & Tele-Veterinary</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<!-- Top Navigation Bar for Seamless Hub Access -->
+<div style="background:#0f172a; color:#f8fafc; padding:10px 16px; font-family:sans-serif; font-size:0.85rem; display:flex; justify-content:space-between; align-items:center; border-bottom:2px solid #0284c7; position:sticky; top:0; z-index:9999;">
+    <div>
+        <a href="../index.html" style="color:#38bdf8; text-decoration:none; font-weight:bold; display:inline-flex; align-items:center; gap:6px;">
+            🏠 ← Back to All Experiments (1-46)
+        </a>
+    </div>
+    <div>
+        <strong>Experiment 19:</strong> VetConnect Veterinary Assistance
+    </div>
+    <div style="font-size:0.75rem; color:#94a3b8;">
+        CSA4303 IP Lab • SIMATS
+    </div>
+</div>
+
+    <header class="header">
+        <h1>🐾 Vet<span>Connect</span></h1>
+        <p>Rural Livestock &amp; Domestic Pet Tele-Veterinary Portal</p>
+    </header>
+    <main class="container">
+        <section class="card">
+            <h3>Request Animal Tele-Consultation</h3>
+            <form onsubmit="bookVetConsult(event)">
+                <div class="row">
+                    <div>
+                        <label>Animal Type *</label>
+                        <select id="animalType" required>
+                            <option value="Dairy Cow / Cattle">Dairy Cow / Cattle</option>
+                            <option value="Buffalo">Buffalo</option>
+                            <option value="Sheep / Goat">Sheep / Goat</option>
+                            <option value="Dog / Cat">Dog / Cat</option>
+                            <option value="Poultry">Poultry</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label>Owner Name *</label>
+                        <input type="text" id="ownerName" required placeholder="Farmer / Pet Owner">
+                    </div>
+                </div>
+                <div class="row">
+                    <div>
+                        <label>Contact Phone (WhatsApp) *</label>
+                        <input type="tel" id="ownerPhone" required pattern="[0-9]{10}" placeholder="9876543210">
+                    </div>
+                    <div>
+                        <label>Consultation Mode *</label>
+                        <select id="consultMode">
+                            <option value="Video Teleconsult">Live Video Call</option>
+                            <option value="Photo & Symptoms Review">Photo/Video Clip Upload Review</option>
+                            <option value="Emergency Vet Dispatch">Emergency Field Vet Visit</option>
+                        </select>
+                    </div>
+                </div>
+                <div>
+                    <label>Observed Signs & Symptoms *</label>
+                    <textarea id="symptomsText" rows="3" required placeholder="Describe reduced appetite, high temperature, limping, swelling, milk drop..."></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary" style="margin-top:14px;">Book Veterinary Slot & Pay ₹250</button>
+            </form>
+        </section>
+        <section class="card" style="margin-top:20px;">
+            <h3>Active Veterinary Case Logs</h3>
+            <div id="casesList"></div>
+        </section>
+    </main>
+    <div id="toast" class="toast"></div>
+    <script src="script.js"></script>
+</body>
+</html>

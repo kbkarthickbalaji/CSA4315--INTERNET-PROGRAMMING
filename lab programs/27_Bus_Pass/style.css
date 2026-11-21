@@ -1,0 +1,12 @@
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, sans-serif; }
+body { background: #f0fdfa; color: #115e59; }
+.header { background: #0f766e; color: white; padding: 18px 6%; text-align: center; }
+.header span { color: #5eead4; }
+.container { max-width: 860px; margin: 24px auto; padding: 0 16px; }
+.card { background: white; border-radius: 8px; padding: 22px; box-shadow: 0 2px 10px rgba(0,0,0,0.06); }
+.row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 12px; }
+label { font-size: 0.8rem; font-weight: 700; color: #115e59; display: block; margin-bottom: 4px; }
+input, select { width: 100%; padding: 9px; border: 1.5px solid #99f6e4; border-radius: 6px; }
+.btn-primary { background: #0f766e; color: white; width: 100%; padding: 10px; border: none; border-radius: 6px; font-weight: 700; cursor: pointer; }
+.smart-pass { background: linear-gradient(135deg, #0f766e, #134e4a); color: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.15); }
+.toast { position: fixed; bottom: 20px; right: 20px; background: #0f766e; color: white; padding: 10px 18px; border-radius: 6px; display: none; }

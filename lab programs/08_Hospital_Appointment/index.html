@@ -1,0 +1,49 @@
+<!doctype html><html><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><link rel=stylesheet href=../style.css></head><body>
+<!-- Top Navigation Bar for Seamless Hub Access -->
+<div style="background:#0f172a; color:#f8fafc; padding:10px 16px; font-family:sans-serif; font-size:0.85rem; display:flex; justify-content:space-between; align-items:center; border-bottom:2px solid #0284c7; position:sticky; top:0; z-index:9999;">
+    <div>
+        <a href="../index.html" style="color:#38bdf8; text-decoration:none; font-weight:bold; display:inline-flex; align-items:center; gap:6px;">
+            🏠 ← Back to All Experiments (1-46)
+        </a>
+    </div>
+    <div>
+        <strong>Experiment 08:</strong> MedCare Hospital Appointment Booking
+    </div>
+    <div style="font-size:0.75rem; color:#94a3b8;">
+        CSA4303 IP Lab • SIMATS
+    </div>
+</div>
+<script src=../common.js></script><script>
+const D=Store('mc:doctors',[
+{name:'Dr. Anitha Rao',specialty:'Cardiology',hospital:'MedCare Central',location:'Chennai',fee:600},
+{name:'Dr. Karthik Raman',specialty:'Orthopedics',hospital:'MedCare Central',location:'Chennai',fee:500},
+{name:'Dr. Meera Nair',specialty:'Pediatrics',hospital:'MedCare Kids',location:'Coimbatore',fee:400},
+{name:'Dr. Suresh Babu',specialty:'Dermatology',hospital:'MedCare Skin Clinic',location:'Madurai',fee:450}]);
+const A=Store('mc:appts',[]);const SLOTS=['09:00','10:00','11:00','12:00','14:00','15:00','16:00'];
+let U,F={};
+const rating=id=>{const r=A.all().filter(a=>a.docId==id&&a.rating);return r.length?(r.reduce((s,a)=>s+a.rating,0)/r.length).toFixed(1)+'★ ('+r.length+')':'No ratings'};
+function find(){const d=D.all(),sp=[...new Set(d.map(x=>x.specialty))],lc=[...new Set(d.map(x=>x.location))];
+ const l=d.filter(x=>(!F.sp||x.specialty==F.sp)&&(!F.loc||x.location==F.loc)&&(!F.q||(x.name+x.hospital).toLowerCase().includes(F.q.toLowerCase())));
+ view(`<div class=card><h2>Search doctors / hospitals</h2><form id=f class=grid><label>Specialty<select name=sp><option value="">All</option>${opts(sp,F.sp)}</select></label><label>Location<select name=loc><option value="">All</option>${opts(lc,F.loc)}</select></label><label>Name / hospital<input name=q value="${esc(F.q||'')}"></label><button>Search</button></form></div>
+ <div class=card>${table([['Doctor',x=>esc(x.name)],['Specialty',x=>esc(x.specialty)],['Hospital',x=>esc(x.hospital)],['Location',x=>esc(x.location)],['Fee',x=>inr(x.fee)],['Rating',x=>rating(x.id)],['',x=>`<button onclick="S.book('${x.id}')">Book</button>`]],l)}</div>`);
+ onForm('#f',v=>{F=v;find()})}
+function mine(){view(`<div class=card><h2>My appointments</h2>${table([['Doctor',a=>esc(a.docName)],['Hospital',a=>esc(a.hospital)],['Date',a=>a.date],['Time',a=>a.slot],['Reason',a=>esc(a.reason)],['Status',a=>a.status+(a.rating?' · '+a.rating+'★':'')],['',a=>a.status=='Booked'?`<button onclick="S.cancel('${a.id}')">Cancel</button>`:a.status=='Completed'&&!a.rating?`<button onclick="S.rate('${a.id}')">Rate doctor</button>`:'']],A.all().filter(a=>a.patientId==U.id).reverse())}</div>`)}
+function profile(){U=Auth.cur();view(`<div class=card style="max-width:400px"><h2>My profile</h2><form id=f><label>Name<input name=name value="${esc(U.name)}" required></label><label>Phone<input name=phone value="${esc(U.phone||'')}"></label><label>Username<input value="${esc(U.username)}" disabled></label><button>Update</button></form></div>`);onForm('#f',v=>{Auth.update(U.id,v);toast('Profile updated')})}
+function docs(){view(`<div class=card><h2>Add doctor</h2><form id=f class=grid><label>Name<input name=name required></label><label>Specialty<input name=specialty required></label><label>Hospital<input name=hospital required></label><label>Location<input name=location required></label><label>Fee<input type=number name=fee required></label><button>Add</button></form></div><div class=card><h2>Manage doctors</h2>${table([['Doctor',x=>esc(x.name)],['Specialty',x=>esc(x.specialty)],['Hospital',x=>esc(x.hospital)],['Location',x=>esc(x.location)],['Fee',x=>inr(x.fee)],['',x=>`<button onclick="S.delDoc('${x.id}')">Delete</button>`]],D.all())}</div>`);
+ onForm('#f',v=>{D.add({...v,fee:+v.fee});docs()})}
+function appts(){view(`<div class=card><h2>All appointments</h2>${table([['Patient',a=>esc(a.patientName)],['Doctor',a=>esc(a.docName)],['Date',a=>a.date],['Time',a=>a.slot],['Reason',a=>esc(a.reason)],['Status',a=>a.status],['',a=>a.status=='Booked'?`<button onclick="S.st('${a.id}','Completed')">Complete</button> <button onclick="S.st('${a.id}','Cancelled')">Cancel</button>`:'']],A.all().reverse())}</div>`)}
+function stats(){const a=A.all(),c=s=>a.filter(x=>x.status==s).length;
+ view(`<div class=card><h2>Appointment statistics</h2><span class=stat><b>${a.length}</b>Total</span><span class=stat><b>${c('Booked')}</b>Booked</span><span class=stat><b>${c('Completed')}</b>Completed</span><span class=stat><b>${c('Cancelled')}</b>Cancelled</span></div>
+ <div class=card><h2>Doctor ratings</h2>${table([['Doctor',x=>esc(x.name)],['Appointments',x=>a.filter(y=>y.docId==x.id).length],['Rating',x=>rating(x.id)]],D.all())}</div>
+ <div class=card><h2>Patient reviews</h2>${table([['Doctor',x=>esc(x.docName)],['Patient',x=>esc(x.patientName)],['Rating',x=>x.rating+'★'],['Review',x=>esc(x.review)]],a.filter(x=>x.rating))}</div>`)}
+window.S={book(id){const x=D.get(id);view(`<div class=card><button onclick="go(0)">← Back</button><h2>Book: ${esc(x.name)}</h2><p>${esc(x.specialty)} · ${esc(x.hospital)}, ${esc(x.location)} · ${inr(x.fee)}</p>
+ <iframe src="https://maps.google.com/maps?q=${encodeURIComponent(x.hospital+' '+x.location)}&output=embed"></iframe>
+ <form id=f class=grid><label>Date<input type=date name=date min="${today()}" required></label><label>Time slot<select name=slot id=sl><option value="">Pick a date first</option></select></label><label>Reason / symptoms (check-in form)<input name=reason required></label><button>Confirm booking</button></form></div>`);
+ const dt=$('[name=date]');dt.onchange=()=>{const t=A.all().filter(a=>a.docId==id&&a.date==dt.value&&a.status=='Booked').map(a=>a.slot);$('#sl').innerHTML=SLOTS.filter(s=>!t.includes(s)).map(s=>`<option>${s}</option>`).join('')||'<option value="">Fully booked</option>'};
+ onForm('#f',v=>{if(!v.slot)return toast('No slot available');A.add({...v,docId:id,docName:x.name,hospital:x.hospital,patientId:U.id,patientName:U.name,status:'Booked'});toast('Appointment booked');go(1)})},
+ cancel(id){if(confirm('Cancel this appointment?')){A.upd(id,{status:'Cancelled'});mine()}},
+ rate(id){const r=+prompt('Rating (1-5)');if(r>=1&&r<=5){A.upd(id,{rating:r,review:prompt('Write a short review')||''});mine()}},
+ delDoc(id){if(confirm('Delete doctor?')){D.del(id);docs()}},st(id,s){A.upd(id,{status:s});appts()}};
+boot({app:'medcare',title:'MedCare Hospital – Online Appointments',roles:[{id:'patient',label:'Patient',reg:true},{id:'admin',label:'Admin'}],seed:[{username:'admin',password:'admin123',role:'admin',name:'Admin'}],hint:'Admin login: admin / admin123',
+ menu:{patient:u=>{U=u;return[['Find doctor',find],['My appointments',mine],['Profile',profile]]},admin:()=>[['Appointments',appts],['Doctors',docs],['Statistics & ratings',stats]]}});
+</script></body></html>

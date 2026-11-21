@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Bus Ticket Booking</title><link rel="stylesheet" href="style.css"></head>
+<body>
+<!-- Top Navigation Bar for Seamless Hub Access -->
+<div style="background:#0f172a; color:#f8fafc; padding:10px 16px; font-family:sans-serif; font-size:0.85rem; display:flex; justify-content:space-between; align-items:center; border-bottom:2px solid #0284c7; position:sticky; top:0; z-index:9999;">
+    <div>
+        <a href="../index.html" style="color:#38bdf8; text-decoration:none; font-weight:bold; display:inline-flex; align-items:center; gap:6px;">
+            🏠 ← Back to All Experiments (1-46)
+        </a>
+    </div>
+    <div>
+        <strong>Experiment 03:</strong> Bus Ticket Booking
+    </div>
+    <div style="font-size:0.75rem; color:#94a3b8;">
+        CSA4303 IP Lab • SIMATS
+    </div>
+</div>
+<header><h1>Bus Ticket Booking</h1><p>Search buses by route and date, view seat availability, choose seats, enter passenger details, confirm a demo ticket and view bookings.</p><nav><a href="#features">Features</a><a href="#main">Explore / Book</a><a href="#records">My dashboard</a><a href="#admin">Admin demo</a></nav></header>
+<main><div class="hero"><h2>Welcome</h2><p>This is a responsive front-end lab demonstration based on Experiment 03. Use the forms to try the workflow.</p><span class="tag">HTML · CSS · JavaScript</span></div>
+<section id="features"><h2>Key features</h2><div class="grid"><article class="card"><h3>Bus search</h3><p class="muted">Search by origin, destination and journey date.</p></article><article class="card"><h3>Seat selection</h3><p class="muted">Select seats and enter passenger details.</p></article><article class="card"><h3>Admin tools</h3><p class="muted">Add/update sample bus information and view a simple report.</p></article></div></section>
+<div id="main" style="display:grid;gap:16px;margin-top:20px">
+<section class="panel"><h2>Search buses</h2><form id="searchForm" class="grid"><div><label>From</label><input id="from" required placeholder="Chennai"></div><div><label>To</label><input id="to" required placeholder="Coimbatore"></div><div><label>Journey date</label><input id="journey" type="date" required></div><button>Find buses</button></form><div id="searchResults"></div></section>
+<section class="panel"><h2>Passenger and seat booking</h2><form id="demoForm"><label>Passenger / bus</label><input name="title" required placeholder="Passenger name - Bus name"><label>Seat numbers and route</label><input name="detail" required placeholder="Seats 3, 4; Chennai to Coimbatore"><input type="hidden" name="status" value="Ticket booked (demo)"><button>Confirm demo ticket</button></form></section></div>
+<section id="records" class="panel" style="margin-top:18px"><h2>My dashboard / saved records</h2><div id="records"></div><div class="actions"><button class="secondary" onclick="resetDemo()">Clear demo data</button></div></section>
+<section id="admin" class="panel" style="margin-top:18px"><h2>Admin panel (front-end demo)</h2><p class="muted">Administrative changes below are stored only in this browser. No real account or server is connected.</p><form id="adminForm"><label>Item / setting</label><input name="title" required placeholder="Service, room, bus, product, schedule..."><label>Details / updated value</label><input name="detail" required placeholder="Enter details"><input type="hidden" name="status" value="Admin update"><button>Save admin update</button></form></section>
+<div id="message"></div><div class="notice warning"><strong>Important:</strong> This is a client-side academic demonstration. Real authentication, database storage, live inventory, payment gateway, email/SMS notifications and production security require a server and trusted service integrations. Do not enter real passwords or payment details.</div>
+</main><footer>Internet Programming Lab · Experiment 03 · Responsive HTML/CSS/JavaScript demo</footer><script src="script.js"></script></body></html>

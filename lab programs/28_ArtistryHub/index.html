@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emily Harris - ArtistryHub Portfolio</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<!-- Top Navigation Bar for Seamless Hub Access -->
+<div style="background:#0f172a; color:#f8fafc; padding:10px 16px; font-family:sans-serif; font-size:0.85rem; display:flex; justify-content:space-between; align-items:center; border-bottom:2px solid #0284c7; position:sticky; top:0; z-index:9999;">
+    <div>
+        <a href="../index.html" style="color:#38bdf8; text-decoration:none; font-weight:bold; display:inline-flex; align-items:center; gap:6px;">
+            🏠 ← Back to All Experiments (1-46)
+        </a>
+    </div>
+    <div>
+        <strong>Experiment 28:</strong> ArtistryHub Artist Portfolio (Emily Harris)
+    </div>
+    <div style="font-size:0.75rem; color:#94a3b8;">
+        CSA4303 IP Lab • SIMATS
+    </div>
+</div>
+
+    <header class="header">
+        <div class="artist-brand">Emily Harris <span>Fine Art</span></div>
+        <nav><a href="#about">About</a><a href="#gallery">Gallery</a><a href="#contact">Commission</a></nav>
+    </header>
+    <main class="container">
+        <section id="about" class="hero">
+            <h2>Capturing Light &amp; Silence</h2>
+            <p>Emily Harris is a contemporary oil and mixed-media painter based in Chennai, celebrating natural reflections and atmospheric textures across global exhibitions.</p>
+        </section>
+        <section id="gallery" class="gallery-sec">
+            <h3>Featured Artwork Collection</h3>
+            <div class="art-grid">
+                <div class="art-card">
+                    <div class="art-placeholder" style="background:#fef08a;">🎨</div>
+                    <h4>Sunset Resonance</h4>
+                    <p>Oil on Canvas • 36×48 in</p>
+                </div>
+                <div class="art-card">
+                    <div class="art-placeholder" style="background:#bae6fd;">🌊</div>
+                    <h4>Azure Stillness</h4>
+                    <p>Acrylic &amp; Texture • 24×36 in</p>
+                </div>
+                <div class="art-card">
+                    <div class="art-placeholder" style="background:#bbf7d0;">🌿</div>
+                    <h4>Monsoon Whispers</h4>
+                    <p>Charcoal &amp; Gouache • 18×24 in</p>
+                </div>
+            </div>
+        </section>
+        <section id="contact" class="card" style="margin-top:30px;">
+            <h3>Inquire for Custom Artwork Commission</h3>
+            <form onsubmit="sendArtInquiry(event)">
+                <input type="text" id="artClient" required placeholder="Your Name" style="margin-bottom:10px;">
+                <input type="email" id="artEmail" required placeholder="Your Email" style="margin-bottom:10px;">
+                <textarea rows="3" placeholder="Describe canvas dimensions, preferred medium or custom vision..." required></textarea>
+                <button type="submit" class="btn">Send Commission Request</button>
+            </form>
+        </section>
+    </main>
+    <div id="toast" class="toast"></div>
+    <script src="script.js"></script>
+</body>
+</html>

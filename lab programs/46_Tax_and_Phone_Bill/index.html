@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GovPay - Income Tax & Phone Bill Calculator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<!-- Top Navigation Bar for Seamless Hub Access -->
+<div style="background:#0f172a; color:#f8fafc; padding:10px 16px; font-family:sans-serif; font-size:0.85rem; display:flex; justify-content:space-between; align-items:center; border-bottom:2px solid #0284c7; position:sticky; top:0; z-index:9999;">
+    <div>
+        <a href="../index.html" style="color:#38bdf8; text-decoration:none; font-weight:bold; display:inline-flex; align-items:center; gap:6px;">
+            🏠 ← Back to All Experiments (1-46)
+        </a>
+    </div>
+    <div>
+        <strong>Experiment 46:</strong> Income Tax Calculator & Online Phone Bill Payment
+    </div>
+    <div style="font-size:0.75rem; color:#94a3b8;">
+        CSA4303 IP Lab • SIMATS
+    </div>
+</div>
+
+    <header class="header">
+        <h1>🏛️ Gov<span>Pay</span> Services</h1>
+        <nav class="nav-links">
+            <button class="nav-btn active" onclick="switchGov('tax')">Income Tax Calculator</button>
+            <button class="nav-btn" onclick="switchGov('phone')">Phone Bill &amp; Fine Payment</button>
+        </nav>
+    </header>
+    <main class="container">
+        <!-- MODULE A: INCOME TAX CALCULATOR -->
+        <section id="taxSection" class="card tab-pane active">
+            <h3>Employee Annual Income Tax Calculator (Govt Norms)</h3>
+            <p class="subtitle">Net Taxable Income = (Gross*12) - (HRA*12) - (Std Deduction ₹50,000) - (80C Pension max ₹1,50,000) - (Health Insurance*12)</p>
+            <form onsubmit="calcTax(event)">
+                <div class="row">
+                    <div>
+                        <label>Monthly Gross Pay (₹) *</label>
+                        <input type="number" id="grossPay" value="65000" required>
+                    </div>
+                    <div>
+                        <label>Monthly HRA (₹) *</label>
+                        <input type="number" id="hraPay" value="12000" required>
+                    </div>
+                </div>
+                <div class="row">
+                    <div>
+                        <label>Annual Pension / 80C Investment (Max ₹1.5L) *</label>
+                        <input type="number" id="pension80C" value="120000" max="150000" required>
+                    </div>
+                    <div>
+                        <label>Monthly Health Insurance (₹) *</label>
+                        <input type="number" id="healthIns" value="2000" required>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary">Calculate Income Tax Slabs</button>
+            </form>
+            <div id="taxResult" style="margin-top:20px;"></div>
+        </section>
+
+        <!-- MODULE B: PHONE BILL & LATE FINE PAYMENT -->
+        <section id="phoneSection" class="card tab-pane">
+            <h3>Online Phone Bill Payment &amp; Late Fine Settlement</h3>
+            <p class="subtitle">Payment deadline: 10th of every month. Fine rate: Rs. 10 per day after due date.</p>
+            <form onsubmit="calcPhoneBill(event)">
+                <div class="row">
+                    <div>
+                        <label>Mobile Number (10 Digits) *</label>
+                        <input type="tel" id="phoneNum" pattern="[0-9]{10}" value="9876543210" required>
+                    </div>
+                    <div>
+                        <label>Monthly Plan Rental (₹) *</label>
+                        <input type="number" id="planAmt" value="599" required>
+                    </div>
+                </div>
+                <div class="row">
+                    <div>
+                        <label>Bill Due Date *</label>
+                        <input type="date" id="dueDate" value="2026-11-10" required>
+                    </div>
+                    <div>
+                        <label>Payment Date *</label>
+                        <input type="date" id="payDate" value="2026-11-18" required onchange="calcPhoneFine()">
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-secondary">Calculate Total with Late Penalty</button>
+            </form>
+            <div id="phoneResult" style="margin-top:20px;"></div>
+        </section>
+    </main>
+    <div id="toast" class="toast"></div>
+    <script src="script.js"></script>
+</body>
+</html>

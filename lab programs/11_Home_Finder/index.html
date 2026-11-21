@@ -1,0 +1,50 @@
+<!doctype html><html><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><link rel=stylesheet href=../style.css></head><body>
+<!-- Top Navigation Bar for Seamless Hub Access -->
+<div style="background:#0f172a; color:#f8fafc; padding:10px 16px; font-family:sans-serif; font-size:0.85rem; display:flex; justify-content:space-between; align-items:center; border-bottom:2px solid #0284c7; position:sticky; top:0; z-index:9999;">
+    <div>
+        <a href="../index.html" style="color:#38bdf8; text-decoration:none; font-weight:bold; display:inline-flex; align-items:center; gap:6px;">
+            🏠 ← Back to All Experiments (1-46)
+        </a>
+    </div>
+    <div>
+        <strong>Experiment 11:</strong> Home Finder Real Estate Platform
+    </div>
+    <div style="font-size:0.75rem; color:#94a3b8;">
+        CSA4303 IP Lab • SIMATS
+    </div>
+</div>
+<script src=../common.js></script><script>
+const P=Store('hf:props',[
+{title:'3BHK Villa',type:'House',listing:'Sale',location:'Chennai',price:9500000,beds:3,area:1800,agent:'Ravi Kumar',desc:'Gated community villa with garden.'},
+{title:'2BHK Apartment',type:'Apartment',listing:'Rent',location:'Bengaluru',price:28000,beds:2,area:1100,agent:'Divya S',desc:'Near metro, covered parking.'},
+{title:'DTCP Approved Plot',type:'Land',listing:'Sale',location:'Coimbatore',price:3200000,beds:0,area:2400,agent:'Ravi Kumar',desc:'Corner plot, 40 ft road.'},
+{title:'Office Space',type:'Commercial',listing:'Rent',location:'Chennai',price:65000,beds:0,area:1500,agent:'Divya S',desc:'Furnished, IT corridor.'},
+{title:'1BHK Flat',type:'Apartment',listing:'Rent',location:'Madurai',price:12000,beds:1,area:650,agent:'Ravi Kumar',desc:'Close to bus stand.'},
+{title:'4BHK Duplex',type:'House',listing:'Sale',location:'Hyderabad',price:14500000,beds:4,area:2600,agent:'Divya S',desc:'Premium duplex with terrace.'}]);
+const AG=Store('hf:agents',[{name:'Ravi Kumar',company:'Prime Realty',phone:'9840000001',email:'ravi@primerealty.in'},{name:'Divya S',company:'HomeNest',phone:'9840000002',email:'divya@homenest.in'}]);
+const V=Store('hf:views',[]),L=Store('hf:log',[]);
+const IC={House:'🏠',Apartment:'🏢',Land:'🌳',Commercial:'🏬'};let U,F={};
+const sk=()=>'hf:saved:'+U.id,fk=()=>'hf:fav:'+U.id;
+const pcard=p=>`<div class=pc><div class=ic>${IC[p.type]}</div><b>${esc(p.title)}</b><small class=muted>${esc(p.type)} for ${p.listing} · ${esc(p.location)}</small><div class=pr>${inr(p.price)}${p.listing=='Rent'?'/mo':''}</div><small>${p.beds?p.beds+' BHK · ':''}${p.area} sq.ft · Agent: ${esc(p.agent)}</small><small>${esc(p.desc)}</small><div><button onclick="S.map('${p.id}')">Map</button> <button onclick="S.visit('${p.id}')">Visit</button> <button onclick="S.fav('${p.id}')">${DB.get(fk(),[]).includes(p.id)?'♥':'♡'}</button></div></div>`;
+function search(){const l=P.all().filter(p=>(!F.location||p.location.toLowerCase().includes(F.location.toLowerCase()))&&(!F.type||p.type==F.type)&&(!F.listing||p.listing==F.listing)&&(!F.max||p.price<=+F.max)&&(!F.beds||p.beds>=+F.beds));
+ view(`<div class=card><h2>Search properties</h2><form id=f class=grid><label>Location<input name=location value="${esc(F.location||'')}"></label><label>Type<select name=type><option value="">Any</option>${opts(Object.keys(IC),F.type)}</select></label><label>Buy / Rent<select name=listing><option value="">Any</option>${opts(['Sale','Rent'],F.listing)}</select></label><label>Max price (₹)<input type=number name=max value="${F.max||''}"></label><label>Min bedrooms<input type=number name=beds value="${F.beds||''}"></label><button>Search</button><button type=button onclick="S.save()">Save criteria</button></form></div><div class=pg>${l.map(pcard).join('')||'<p>No properties match.</p>'}</div>`);
+ onForm('#f',v=>{F=v;search()})}
+function saved(){const s=DB.get(sk(),[]);view(`<div class=card><h2>Saved search criteria</h2>${table([['Name',x=>esc(x.name)],['Criteria',x=>esc(Object.entries(x.f).filter(e=>e[1]).map(e=>e[0]+': '+e[1]).join(', ')||'any')],['',(x,i)=>`<button onclick="S.apply('${x.name}')">Apply</button> <button onclick="S.rmSaved('${x.name}')">Delete</button>`]],s)}</div>`)}
+function favs(){view(`<h2>Favourite listings</h2><div class=pg>${DB.get(fk(),[]).map(id=>P.get(id)).filter(Boolean).map(pcard).join('')||'<p>No favourites yet.</p>'}</div>`)}
+function views(){view(`<div class=card><h2>My viewing requests</h2>${table([['Property',v=>esc(v.title)],['Date',v=>esc(v.date)]],V.all().filter(v=>v.userId==U.id))}</div>`)}
+function agents(){const q=(F.aq||'').toLowerCase();view(`<div class=card><h2>Find agent / company</h2><form id=f class=grid><label>Name or company<input name=aq value="${esc(F.aq||'')}"></label><button>Search</button></form>${table([['Agent',a=>esc(a.name)],['Company',a=>esc(a.company)],['Phone',a=>esc(a.phone)],['Email',a=>esc(a.email)]],AG.all().filter(a=>(a.name+a.company).toLowerCase().includes(q)))}</div>`);onForm('#f',v=>{F.aq=v.aq;agents()})}
+function calc(){view(`<div class=card style="max-width:420px"><h2>Mortgage calculator</h2><form id=f><label>Loan amount (₹)<input type=number name=p required></label><label>Interest rate (% p.a.)<input type=number step=0.1 name=r value=8.5 required></label><label>Tenure (years)<input type=number name=y value=20 required></label><button>Calculate EMI</button></form><h3 id=o></h3></div>`);
+ onForm('#f',v=>{const r=v.r/1200,n=v.y*12,e=v.p*r*Math.pow(1+r,n)/(Math.pow(1+r,n)-1);$('#o').textContent='Monthly EMI: '+inr(Math.round(e))+' · Total: '+inr(Math.round(e*n))})}
+function aProps(){view(`<div class=card><h2>Add property</h2><form id=f class=grid><label>Title<input name=title required></label><label>Type<select name=type>${opts(Object.keys(IC))}</select></label><label>Sale / Rent<select name=listing>${opts(['Sale','Rent'])}</select></label><label>Location<input name=location required></label><label>Price<input type=number name=price required></label><label>Bedrooms<input type=number name=beds value=0></label><label>Area (sq.ft)<input type=number name=area required></label><label>Agent<select name=agent>${opts(AG.all().map(a=>a.name))}</select></label><label>Description<input name=desc></label><button>Add</button></form></div><div class=card><h2>Properties</h2>${table([['Title',p=>esc(p.title)],['Type',p=>p.type+' / '+p.listing],['Location',p=>esc(p.location)],['Price',p=>inr(p.price)],['Agent',p=>esc(p.agent)],['',p=>`<button onclick="S.delP('${p.id}')">Delete</button>`]],P.all())}</div>`);
+ onForm('#f',v=>{P.add({...v,price:+v.price,beds:+v.beds,area:+v.area});aProps()})}
+function aAgents(){view(`<div class=card><h2>Add agent / company</h2><form id=f class=grid><label>Name<input name=name required></label><label>Company<input name=company required></label><label>Phone<input name=phone required></label><label>Email<input name=email type=email required></label><button>Add</button></form></div><div class=card>${table([['Agent',a=>esc(a.name)],['Company',a=>esc(a.company)],['Phone',a=>esc(a.phone)],['Email',a=>esc(a.email)],['',a=>`<button onclick="S.delA('${a.id}')">Delete</button>`]],AG.all())}</div>`);onForm('#f',v=>{AG.add(v);aAgents()})}
+function aCust(){view(`<div class=card><h2>Registered buyers</h2>${table([['Name',u=>esc(u.name)],['Username',u=>esc(u.username)],['Phone',u=>esc(u.phone||'-')]],Auth.list().filter(u=>u.role=='buyer'))}</div><div class=card><h2>Website visit log</h2>${table([['Customer',l=>esc(l.user)],['Visited at',l=>esc(l.time)]],L.all().slice().reverse())}</div><div class=card><h2>Viewing requests</h2>${table([['Customer',v=>esc(v.userName)],['Property',v=>esc(v.title)],['Date',v=>esc(v.date)]],V.all())}</div>`)}
+window.S={save(){const n=prompt('Name for this search');if(n){DB.set(sk(),[...DB.get(sk(),[]).filter(x=>x.name!=n),{name:n,f:F}]);toast('Criteria saved')}},
+ apply(n){F=DB.get(sk(),[]).find(x=>x.name==n).f;go(0)},rmSaved(n){DB.set(sk(),DB.get(sk(),[]).filter(x=>x.name!=n));saved()},
+ fav(id){const f=DB.get(fk(),[]);DB.set(fk(),f.includes(id)?f.filter(x=>x!=id):[...f,id]);search()},
+ visit(id){const d=prompt('Preferred viewing date (YYYY-MM-DD)',today());if(d){V.add({propId:id,title:P.get(id).title,userId:U.id,userName:U.name,date:d});toast('Viewing requested')}},
+ map(id){const p=P.get(id);view(`<div class=card><button onclick="go(0)">← Back</button><h2>${esc(p.title)} – ${esc(p.location)}</h2><iframe src="https://maps.google.com/maps?q=${encodeURIComponent(p.title+' '+p.location)}&output=embed"></iframe></div>`)},
+ delP(id){P.del(id);aProps()},delA(id){AG.del(id);aAgents()}};
+boot({app:'homefinder',title:'Home Finder – Property Portal',roles:[{id:'buyer',label:'Buyer / Renter',reg:true},{id:'admin',label:'Admin'}],seed:[{username:'admin',password:'admin123',role:'admin',name:'Admin'}],hint:'Admin login: admin / admin123',
+ menu:{buyer:u=>{U=u;if(!sessionStorage.hf){L.add({user:u.name,time:new Date().toLocaleString()});sessionStorage.hf=1}return[['Search',search],['Saved searches',saved],['Favourites',favs],['Viewings',views],['Agents',agents],['Mortgage calc',calc]]},admin:()=>[['Properties',aProps],['Agents',aAgents],['Customers & visits',aCust]]}});
+</script></body></html>

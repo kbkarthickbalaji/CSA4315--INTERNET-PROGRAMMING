@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PlacementPrep - Online Technical Assessment</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<!-- Top Navigation Bar for Seamless Hub Access -->
+<div style="background:#0f172a; color:#f8fafc; padding:10px 16px; font-family:sans-serif; font-size:0.85rem; display:flex; justify-content:space-between; align-items:center; border-bottom:2px solid #0284c7; position:sticky; top:0; z-index:9999;">
+    <div>
+        <a href="../index.html" style="color:#38bdf8; text-decoration:none; font-weight:bold; display:inline-flex; align-items:center; gap:6px;">
+            🏠 ← Back to All Experiments (1-46)
+        </a>
+    </div>
+    <div>
+        <strong>Experiment 44:</strong> Online Placement Examination Website
+    </div>
+    <div style="font-size:0.75rem; color:#94a3b8;">
+        CSA4303 IP Lab • SIMATS
+    </div>
+</div>
+
+    <header class="header">
+        <h1>📝 Placement<span>Prep</span> Assessment</h1>
+        <div class="timer" id="examTimer">⏱️ Time Left: 15:00</div>
+    </header>
+    <main class="container">
+        <section class="card" id="quizSection">
+            <h3 id="qTitle">Question 1 of 3</h3>
+            <p id="qText" style="margin:10px 0; font-weight:600;"></p>
+            <div id="optionsList" class="options-grid"></div>
+            <div style="margin-top:20px; display:flex; justify-content:space-between;">
+                <button class="btn btn-secondary" onclick="prevQ()">← Previous</button>
+                <button class="btn btn-primary" id="nextBtn" onclick="nextQ()">Next Question →</button>
+            </div>
+        </section>
+        <section class="card" id="resultSection" style="display:none; text-align:center;">
+            <h2>Assessment Evaluation Complete!</h2>
+            <h1 id="scoreDisplay" style="color:#0284c7; margin:16px 0;">0 / 3</h1>
+            <p id="scoreFeedback"></p>
+            <button class="btn btn-primary" onclick="location.reload()" style="margin-top:14px;">Retake Examination</button>
+        </section>
+    </main>
+    <script src="script.js"></script>
+</body>
+</html>

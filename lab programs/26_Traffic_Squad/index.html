@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TrafficSquad - e-Challan & Traffic FIR Portal</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<!-- Top Navigation Bar for Seamless Hub Access -->
+<div style="background:#0f172a; color:#f8fafc; padding:10px 16px; font-family:sans-serif; font-size:0.85rem; display:flex; justify-content:space-between; align-items:center; border-bottom:2px solid #0284c7; position:sticky; top:0; z-index:9999;">
+    <div>
+        <a href="../index.html" style="color:#38bdf8; text-decoration:none; font-weight:bold; display:inline-flex; align-items:center; gap:6px;">
+            🏠 ← Back to All Experiments (1-46)
+        </a>
+    </div>
+    <div>
+        <strong>Experiment 26:</strong> Traffic Squad Penalty & FIR Management
+    </div>
+    <div style="font-size:0.75rem; color:#94a3b8;">
+        CSA4303 IP Lab • SIMATS
+    </div>
+</div>
+
+    <header class="header">
+        <h1>🚨 Traffic<span>Squad</span></h1>
+        <p>State Police e-Challan Issuance &amp; Fine Settlement Portal</p>
+    </header>
+    <main class="container">
+        <section class="card">
+            <h3>Vehicle Fine Search &amp; Settlement</h3>
+            <div class="search-row">
+                <input type="text" id="vehSearch" placeholder="Enter Registration No (e.g. TN-01-AB-1234)">
+                <button class="btn btn-primary" onclick="searchChallan()">Search Pending Challans</button>
+            </div>
+            <div id="challanResult" style="margin-top:16px;"></div>
+        </section>
+        <section class="card" style="margin-top:20px;">
+            <h3>Traffic Police Officer Duty Desk: Issue New e-Challan</h3>
+            <form onsubmit="issueChallan(event)">
+                <div class="row">
+                    <div>
+                        <label>Vehicle Reg Number *</label>
+                        <input type="text" id="newVehNo" required placeholder="TN-09-CD-5678">
+                    </div>
+                    <div>
+                        <label>Violation Offense *</label>
+                        <select id="newOffense" onchange="updateFineAmt()">
+                            <option value="Helmetless Riding|1000">Without Helmet (₹1,000)</option>
+                            <option value="Red Light Signal Jump|1500">Red Light Signal Jump (₹1,500)</option>
+                            <option value="Over Speeding|2000">Over Speeding Beyond Limit (₹2,000)</option>
+                            <option value="Dangerous / Rash Driving|5000">Dangerous / Rash Driving (₹5,000)</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div>
+                        <label>Traffic Junction / Location *</label>
+                        <input type="text" id="newLoc" required placeholder="Saveetha Junction Signal">
+                    </div>
+                    <div>
+                        <label>Penalty Fine (₹)</label>
+                        <input type="text" id="newFine" value="1000" readonly>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-secondary">Issue Digital e-Challan</button>
+            </form>
+        </section>
+    </main>
+    <div id="toast" class="toast"></div>
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Online Cake Ordering</title><link rel="stylesheet" href="style.css"></head>
+<body>
+<!-- Top Navigation Bar for Seamless Hub Access -->
+<div style="background:#0f172a; color:#f8fafc; padding:10px 16px; font-family:sans-serif; font-size:0.85rem; display:flex; justify-content:space-between; align-items:center; border-bottom:2px solid #0284c7; position:sticky; top:0; z-index:9999;">
+    <div>
+        <a href="../index.html" style="color:#38bdf8; text-decoration:none; font-weight:bold; display:inline-flex; align-items:center; gap:6px;">
+            🏠 ← Back to All Experiments (1-46)
+        </a>
+    </div>
+    <div>
+        <strong>Experiment 06:</strong> Online Cake Ordering System
+    </div>
+    <div style="font-size:0.75rem; color:#94a3b8;">
+        CSA4303 IP Lab • SIMATS
+    </div>
+</div>
+<header><h1>Online Cake Ordering</h1><p>Browse cakes by category/flavour/occasion, customize size and message, add to cart, enter delivery address, place demo order and track status.</p><nav><a href="#features">Features</a><a href="#main">Explore / Book</a><a href="#records">My dashboard</a><a href="#admin">Admin demo</a></nav></header>
+<main><div class="hero"><h2>Welcome</h2><p>This is a responsive front-end lab demonstration based on Experiment 06. Use the forms to try the workflow.</p><span class="tag">HTML · CSS · JavaScript</span></div>
+<section id="features"><h2>Key features</h2><div class="grid"><article class="card"><h3>Cake catalogue</h3><p class="muted">Filter sample cakes and view descriptions and prices.</p></article><article class="card"><h3>Cart and checkout</h3><p class="muted">Customize cake size/message and place a demo order.</p></article><article class="card"><h3>Admin panel</h3><p class="muted">Add cake products and update sample order status.</p></article></div></section>
+<div id="main" style="display:grid;gap:16px;margin-top:20px">
+<section class="panel"><h2>Cake catalogue</h2><div class="grid"><div><label>Category</label><select id="category"><option>All</option><option>Birthday</option><option>Wedding</option><option>Chocolate</option></select></div><div><label>Search cake</label><input id="cakeSearch" placeholder="Cake name"></div></div><div id="cakeList"></div></section>
+<section class="panel"><h2>Customize and order</h2><form id="demoForm"><label>Cake / size</label><input name="title" required placeholder="Chocolate truffle - 1 kg"><label>Message and delivery address</label><textarea name="detail" required placeholder="Happy Birthday! Delivery address..."></textarea><input type="hidden" name="status" value="Order placed (demo)"><button>Place demo order</button></form></section></div>
+<section id="records" class="panel" style="margin-top:18px"><h2>My dashboard / saved records</h2><div id="records"></div><div class="actions"><button class="secondary" onclick="resetDemo()">Clear demo data</button></div></section>
+<section id="admin" class="panel" style="margin-top:18px"><h2>Admin panel (front-end demo)</h2><p class="muted">Administrative changes below are stored only in this browser. No real account or server is connected.</p><form id="adminForm"><label>Item / setting</label><input name="title" required placeholder="Service, room, bus, product, schedule..."><label>Details / updated value</label><input name="detail" required placeholder="Enter details"><input type="hidden" name="status" value="Admin update"><button>Save admin update</button></form></section>
+<div id="message"></div><div class="notice warning"><strong>Important:</strong> This is a client-side academic demonstration. Real authentication, database storage, live inventory, payment gateway, email/SMS notifications and production security require a server and trusted service integrations. Do not enter real passwords or payment details.</div>
+</main><footer>Internet Programming Lab · Experiment 06 · Responsive HTML/CSS/JavaScript demo</footer><script src="script.js"></script></body></html>

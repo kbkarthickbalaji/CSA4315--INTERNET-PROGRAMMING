@@ -1,0 +1,15 @@
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, sans-serif; }
+body { background: #fff1f2; color: #881337; }
+.header { background: #be123c; color: white; padding: 18px 6%; text-align: center; }
+.header span { color: #fecdd3; }
+.container { max-width: 900px; margin: 24px auto; padding: 0 16px; }
+.stock-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); gap: 12px; }
+.stock-box { background: white; padding: 14px; border-radius: 8px; text-align: center; border: 2px solid #fecdd3; }
+.bg-name { font-size: 1.4rem; font-weight: 800; color: #be123c; }
+.units { font-size: 0.85rem; color: #64748b; }
+.card { background: white; border-radius: 8px; padding: 24px; box-shadow: 0 2px 10px rgba(0,0,0,0.06); }
+.row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 12px; }
+label { font-size: 0.8rem; font-weight: 700; color: #9f1239; display: block; margin-bottom: 4px; }
+input, select { width: 100%; padding: 9px; border: 1.5px solid #fecdd3; border-radius: 6px; }
+.btn-primary { background: #be123c; color: white; width: 100%; padding: 10px; border: none; border-radius: 6px; font-weight: 700; cursor: pointer; }
+.toast { position: fixed; bottom: 20px; right: 20px; background: #be123c; color: white; padding: 10px 18px; border-radius: 6px; display: none; }

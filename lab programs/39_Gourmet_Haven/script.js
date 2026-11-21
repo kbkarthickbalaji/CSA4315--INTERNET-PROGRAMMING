@@ -1,0 +1,2 @@
+function showToast(m) { const t = document.getElementById('toast'); t.innerText = m; t.style.display = 'block'; setTimeout(() => t.style.display = 'none', 2500); }
+function reserveGourmet(e) { e.preventDefault(); showToast('✓ Table reserved at Gourmet Haven! Confirmation token dispatched.'); e.target.reset(); }

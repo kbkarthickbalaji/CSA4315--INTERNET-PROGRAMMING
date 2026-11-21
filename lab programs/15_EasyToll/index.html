@@ -1,0 +1,47 @@
+<!doctype html><html><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><link rel=stylesheet href=../style.css></head><body>
+<!-- Top Navigation Bar for Seamless Hub Access -->
+<div style="background:#0f172a; color:#f8fafc; padding:10px 16px; font-family:sans-serif; font-size:0.85rem; display:flex; justify-content:space-between; align-items:center; border-bottom:2px solid #0284c7; position:sticky; top:0; z-index:9999;">
+    <div>
+        <a href="../index.html" style="color:#38bdf8; text-decoration:none; font-weight:bold; display:inline-flex; align-items:center; gap:6px;">
+            🏠 ← Back to All Experiments (1-46)
+        </a>
+    </div>
+    <div>
+        <strong>Experiment 15:</strong> EasyToll Online Toll Payment System
+    </div>
+    <div style="font-size:0.75rem; color:#94a3b8;">
+        CSA4303 IP Lab • SIMATS
+    </div>
+</div>
+<script src=../common.js></script><script>
+const GT=Store('et:gates',[{name:'Sriperumbudur Toll Plaza',location:'NH48, Chennai',fee:85},{name:'Walajapet Toll Plaza',location:'NH48, Vellore',fee:120}]),
+PS=Store('et:passes',[]),TK=Store('et:tickets',[]);const PRICE={Monthly:1000,Yearly:10000};let U;
+const me=()=>Auth.cur(),bal=()=>me().wallet||0,pay=n=>{if(bal()<n){toast('Insufficient wallet balance');return false}Auth.update(U.id,{wallet:bal()-n});return true};
+const qr=c=>`<img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(c)}" alt="QR code"><br><code>${esc(c)}</code>`;
+const gsel=()=>`<select name=gateId>${GT.all().map(g=>`<option value=${g.id}>${esc(g.name)} – ${inr(g.fee)}</option>`).join('')}</select>`;
+function wallet(){view(`<div class=card style="max-width:400px"><h2>eWallet</h2><h3>Balance: ${inr(bal())}</h3><form id=f><label>Add money (₹)<input type=number name=amt min=1 required></label><button>Add money</button></form></div>`);onForm('#f',v=>{Auth.update(U.id,{wallet:bal()+ +v.amt});wallet()})}
+function ticket(){view(`<div class=card><h2>Buy toll eTicket</h2><form id=f class=grid><label>Toll gate${gsel()}</label><label>Vehicle number<input name=vehicle required></label><button>Pay & buy</button></form></div><div class=card><h2>My tickets</h2>${table([['Date',t=>t.date],['Gate',t=>esc(t.gateName)],['Vehicle',t=>esc(t.vehicle)],['Fee',t=>inr(t.fee)],['Status',t=>t.used?'Used':'Valid']],TK.all().filter(t=>t.userId==U.id).reverse())}</div>`);
+ onForm('#f',v=>{const g=GT.get(v.gateId);if(!pay(g.fee))return;TK.add({userId:U.id,gateId:g.id,gateName:g.name,vehicle:v.vehicle.toUpperCase(),fee:g.fee,code:'TK'+uid().toUpperCase(),date:today(),used:false});toast('Ticket purchased');ticket()})}
+function passes(){view(`<div class=card><h2>Apply for new toll pass</h2><form id=f class=grid><label>Vehicle number<input name=vehicle required></label><label>Pass type<select name=type><option>Monthly</option><option>Yearly</option></select></label><button>Apply & pay</button></form><p class=muted>Monthly ${inr(PRICE.Monthly)} · Yearly ${inr(PRICE.Yearly)} (refunded if rejected)</p></div><div class=card><h2>My passes</h2>${table([['Vehicle',p=>esc(p.vehicle)],['Type',p=>p.type],['Status',p=>p.status],['Expiry',p=>p.expiry||'-'],['',p=>p.status=='Approved'?`<button onclick="S.renew('${p.id}')">Renew</button>`:'']],PS.all().filter(p=>p.userId==U.id))}</div>`);
+ onForm('#f',v=>{const pr=PRICE[v.type];if(!pay(pr))return;PS.add({userId:U.id,userName:U.name,vehicle:v.vehicle.toUpperCase(),type:v.type,price:pr,status:'Pending'});toast('Application submitted');passes()})}
+function myqr(){const ps=PS.all().filter(p=>p.userId==U.id&&p.status=='Approved'),ts=TK.all().filter(t=>t.userId==U.id&&!t.used);
+ view(`<div class=card><h2>QR codes – toll passes</h2>${ps.map(p=>`<div style="display:inline-block;margin:8px;text-align:center">${qr(p.code)}<br>${esc(p.vehicle)} · valid till ${p.expiry}</div>`).join('')||'<p>No approved passes.</p>'}</div><div class=card><h2>QR codes – unused eTickets</h2>${ts.map(t=>`<div style="display:inline-block;margin:8px;text-align:center">${qr(t.code)}<br>${esc(t.gateName)}</div>`).join('')||'<p>No unused tickets.</p>'}</div>`)}
+function aUsers(){view(`<div class=card><h2>Users</h2>${table([['Name',u=>esc(u.name)],['Username',u=>esc(u.username)],['Wallet',u=>inr(u.wallet||0)],['',u=>`<button onclick="S.delU('${u.id}')">Delete</button>`]],Auth.list().filter(u=>u.role=='user'))}</div>`)}
+function aGates(){view(`<div class=card><h2>Create toll details</h2><form id=f class=grid><label>Toll plaza name<input name=name required></label><label>Location<input name=location required></label><label>Fee per trip (₹)<input type=number name=fee required></label><button>Add</button></form></div><div class=card>${table([['Plaza',g=>esc(g.name)],['Location',g=>esc(g.location)],['Fee',g=>inr(g.fee)],['',g=>`<button onclick="S.delG('${g.id}')">Delete</button>`]],GT.all())}</div>`);onForm('#f',v=>{GT.add({...v,fee:+v.fee});aGates()})}
+function aLogin(){view(`<div class=card><h2>Create toll gate login</h2><form id=f class=grid><label>Toll gate${gsel()}</label><label>Username<input name=username required></label><label>Password<input name=password required></label><button>Create</button></form></div><div class=card>${table([['Username',u=>esc(u.username)],['Gate',u=>esc(GT.get(u.gateId)?.name||'-')],['',u=>`<button onclick="S.delU('${u.id}');S.reload()">Delete</button>`]],Auth.list().filter(u=>u.role=='gate'))}</div>`);
+ onForm('#f',v=>{if(Auth.find(v.username,'gate'))return toast('Username taken');Auth.add({...v,role:'gate',name:GT.get(v.gateId).name+' staff'});aLogin()})}
+function aPass(){view(`<div class=card><h2>Toll pass requests</h2>${table([['User',p=>esc(p.userName)],['Vehicle',p=>esc(p.vehicle)],['Type',p=>p.type],['Status',p=>p.status+(p.code?' · '+p.code:'')],['',p=>p.status=='Pending'?`<button onclick="S.ok('${p.id}')">Approve & generate QR</button> <button onclick="S.no('${p.id}')">Reject</button>`:p.code?`<details><summary>QR</summary>${qr(p.code)}</details>`:'']],PS.all().reverse())}</div>`)}
+function scan(){const g=GT.get(U.gateId);view(`<div class=card><h2>Scan QR / verify – ${esc(g.name)}</h2><form id=f class=grid><label>QR code / pass ID / ticket no.<input name=code required placeholder="TP… or TK…"></label><button>Verify</button></form><div id=res></div></div>`);
+ onForm('#f',v=>{const c=v.code.trim().toUpperCase(),p=PS.all().find(x=>x.code==c),t=TK.all().find(x=>x.code==c);let m;
+  if(p){const ok=p.status=='Approved'&&p.expiry>=today();m=[ok,`Toll pass ${p.code} – ${p.vehicle} (${p.userName}) – ${ok?'VALID until '+p.expiry:'EXPIRED / not approved'}`]}
+  else if(t){const ok=!t.used&&t.gateId==g.id;m=[ok,`Toll ticket ${t.code} – ${t.vehicle} – ${t.used?'ALREADY USED':t.gateId!=g.id?'issued for '+t.gateName:'VALID – gate opened'}`];if(ok)TK.upd(t.id,{used:true})}
+  else m=[false,'Code not found'];$('#res').innerHTML=`<h3 class=${m[0]?'ok':'err'}>${m[0]?'✔':'✖'} ${esc(m[1])}</h3>`})}
+function loc(){const g=GT.get(U.gateId);view(`<div class=card style="max-width:420px"><h2>Update toll location</h2><form id=f><label>Plaza<input value="${esc(g.name)}" disabled></label><label>Location<input name=location value="${esc(g.location)}" required></label><button>Update</button></form></div>`);onForm('#f',v=>{GT.upd(g.id,v);toast('Location updated')})}
+window.S={renew(id){const p=PS.get(id);if(!pay(p.price))return;const b=p.expiry>today()?p.expiry:today();PS.upd(id,{expiry:addM(b,p.type=='Monthly'?1:12)});toast('Pass renewed');passes()},
+ delU(id){Auth.remove(id);aUsers()},reload(){aLogin()},delG(id){GT.del(id);aGates()},
+ ok(id){const p=PS.get(id);PS.upd(id,{status:'Approved',code:'TP'+uid().toUpperCase(),expiry:addM(today(),p.type=='Monthly'?1:12)});aPass()},
+ no(id){const p=PS.get(id),u=Auth.list().find(x=>x.id==p.userId);if(u)Auth.update(u.id,{wallet:(u.wallet||0)+p.price});PS.upd(id,{status:'Rejected'});aPass()}};
+boot({app:'easytoll',title:'EasyToll – Online Toll Payment',roles:[{id:'user',label:'Driver',reg:true},{id:'gate',label:'Toll gate staff'},{id:'admin',label:'Admin'}],seed:[{username:'admin',password:'admin123',role:'admin',name:'Admin'}],
+ hint:'Admin: admin / admin123. Admin creates toll gate staff logins.',
+ menu:{user:u=>{U=u;return[['eWallet',wallet],['Buy eTicket',ticket],['Toll pass',passes],['My QR codes',myqr]]},admin:()=>[['Passes',aPass],['Toll gates',aGates],['Gate logins',aLogin],['Users',aUsers]],gate:u=>{U=u;return[['Scan & verify',scan],['Update location',loc]]}}});
+</script></body></html>

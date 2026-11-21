@@ -1,0 +1,13 @@
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Georgia', serif; }
+body { background: #1c1917; color: #f5f5f4; }
+.header { text-align: center; padding: 36px 16px; border-bottom: 1px solid #44403c; }
+.header span { color: #f59e0b; }
+.container { max-width: 860px; margin: 24px auto; padding: 0 16px; }
+.card { background: #292524; padding: 22px; border-radius: 6px; border: 1px solid #44403c; }
+.row { display: grid; grid-template-columns: 2fr 2fr 1fr; gap: 10px; }
+input { padding: 9px; background: #1c1917; border: 1px solid #57534e; color: white; border-radius: 4px; }
+.btn { background: #f59e0b; color: #1c1917; border: none; font-weight: bold; border-radius: 4px; cursor: pointer; }
+.menu-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; margin-top: 14px; }
+.menu-item { background: #1c1917; padding: 14px; border-radius: 4px; border-left: 3px solid #f59e0b; }
+.menu-item p { font-size: 0.8rem; color: #a8a29e; margin: 4px 0; }
+.toast { position: fixed; bottom: 20px; right: 20px; background: #f59e0b; color: #1c1917; padding: 10px 18px; border-radius: 4px; display: none; font-weight: bold; }

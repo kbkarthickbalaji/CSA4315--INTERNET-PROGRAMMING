@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LearnWell Tuition Centre - Academic Excellence</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<!-- Top Navigation Bar for Seamless Hub Access -->
+<div style="background:#0f172a; color:#f8fafc; padding:10px 16px; font-family:sans-serif; font-size:0.85rem; display:flex; justify-content:space-between; align-items:center; border-bottom:2px solid #0284c7; position:sticky; top:0; z-index:9999;">
+    <div>
+        <a href="../index.html" style="color:#38bdf8; text-decoration:none; font-weight:bold; display:inline-flex; align-items:center; gap:6px;">
+            🏠 ← Back to All Experiments (1-46)
+        </a>
+    </div>
+    <div>
+        <strong>Experiment 34:</strong> LearnWell Tuition Centre Website
+    </div>
+    <div style="font-size:0.75rem; color:#94a3b8;">
+        CSA4303 IP Lab • SIMATS
+    </div>
+</div>
+
+    <header class="header">
+        <h1>🎓 Learn<span>Well</span> Tuition Centre</h1>
+        <p>Comprehensive Coaching for Classes 9-12 &amp; Competitive Entrance</p>
+    </header>
+    <main class="container">
+        <section class="card">
+            <h3>Student Batch Enrollment</h3>
+            <form onsubmit="enrollStudent(event)">
+                <div class="row">
+                    <div>
+                        <label>Student Full Name *</label>
+                        <input type="text" id="studName" required placeholder="Student Name">
+                    </div>
+                    <div>
+                        <label>Academic Grade *</label>
+                        <select id="studGrade"><option>Class 9</option><option>Class 10 (Board Exam)</option><option>Class 11</option><option selected>Class 12 (Board &amp; JEE/NEET)</option></select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div>
+                        <label>Subject Focus Batch *</label>
+                        <select id="studSubj"><option>Advanced Mathematics &amp; Physics</option><option>Chemistry &amp; Biology</option><option>Computer Science &amp; Python</option></select>
+                    </div>
+                    <div>
+                        <label>Parent Contact Mobile *</label>
+                        <input type="tel" id="parentPhone" required pattern="[0-9]{10}" placeholder="9876543210">
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary">Enroll &amp; Schedule Free Demo Class</button>
+            </form>
+        </section>
+    </main>
+    <div id="toast" class="toast"></div>
+    <script src="script.js"></script>
+</body>
+</html>

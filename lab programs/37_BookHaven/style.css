@@ -1,0 +1,12 @@
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Georgia', serif; }
+body { background: #faf5ff; color: #3b0764; }
+.header { background: #581c87; color: white; padding: 18px 6%; display: flex; justify-content: space-between; align-items: center; }
+.header span { color: #facc15; }
+.cart-badge { background: #6b21a8; padding: 8px 14px; border-radius: 20px; font-family: sans-serif; cursor: pointer; font-size: 0.88rem; }
+.container { max-width: 960px; margin: 24px auto; padding: 0 16px; }
+.bestseller-banner { background: white; padding: 24px; border-radius: 8px; border-left: 5px solid #a855f7; margin-bottom: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
+.book-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 18px; }
+.book-card { background: white; padding: 18px; border-radius: 8px; border: 1px solid #e9d5ff; display: flex; flex-direction: column; justify-content: space-between; font-family: sans-serif; }
+.book-price { font-size: 1.25rem; font-weight: bold; color: #581c87; margin: 10px 0; }
+.btn { width: 100%; padding: 10px; background: #6b21a8; color: white; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; }
+.toast { position: fixed; bottom: 20px; right: 20px; background: #581c87; color: white; padding: 10px 18px; border-radius: 6px; display: none; font-family: sans-serif; }

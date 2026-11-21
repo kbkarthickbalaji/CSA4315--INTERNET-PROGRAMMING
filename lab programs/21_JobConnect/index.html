@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JobConnect - Career Recruitment Portal</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<!-- Top Navigation Bar for Seamless Hub Access -->
+<div style="background:#0f172a; color:#f8fafc; padding:10px 16px; font-family:sans-serif; font-size:0.85rem; display:flex; justify-content:space-between; align-items:center; border-bottom:2px solid #0284c7; position:sticky; top:0; z-index:9999;">
+    <div>
+        <a href="../index.html" style="color:#38bdf8; text-decoration:none; font-weight:bold; display:inline-flex; align-items:center; gap:6px;">
+            🏠 ← Back to All Experiments (1-46)
+        </a>
+    </div>
+    <div>
+        <strong>Experiment 21:</strong> JobConnect Online Recruitment Platform
+    </div>
+    <div style="font-size:0.75rem; color:#94a3b8;">
+        CSA4303 IP Lab • SIMATS
+    </div>
+</div>
+
+    <header class="header">
+        <h1>💼 Job<span>Connect</span></h1>
+        <p>Connecting Skilled Engineers with Top Technology Companies</p>
+    </header>
+    <main class="container">
+        <div class="search-bar">
+            <input type="text" id="jobSearch" placeholder="Search by role or tech stack (e.g. Python, Frontend, React)..." oninput="filterJobs()">
+        </div>
+        <div id="jobList" class="job-list"></div>
+    </main>
+    <div id="applyModal" class="modal">
+        <div class="modal-card">
+            <h3>Apply for Job Opening</h3>
+            <p id="modalJobTitle" class="subtitle"></p>
+            <form onsubmit="submitApplication(event)">
+                <input type="text" id="appName" required placeholder="Full Name">
+                <input type="email" id="appEmail" required placeholder="Email Address">
+                <input type="text" id="appSkills" required placeholder="Key Skills / Experience">
+                <div style="display:flex; justify-content:flex-end; gap:8px; margin-top:14px;">
+                    <button type="button" class="btn btn-secondary" onclick="closeModal()">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Submit Application</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div id="toast" class="toast"></div>
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartWaste - Solid Waste Segregation & Pickup</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<!-- Top Navigation Bar for Seamless Hub Access -->
+<div style="background:#0f172a; color:#f8fafc; padding:10px 16px; font-family:sans-serif; font-size:0.85rem; display:flex; justify-content:space-between; align-items:center; border-bottom:2px solid #0284c7; position:sticky; top:0; z-index:9999;">
+    <div>
+        <a href="../index.html" style="color:#38bdf8; text-decoration:none; font-weight:bold; display:inline-flex; align-items:center; gap:6px;">
+            🏠 ← Back to All Experiments (1-46)
+        </a>
+    </div>
+    <div>
+        <strong>Experiment 22:</strong> SmartWaste Solid Waste Management System
+    </div>
+    <div style="font-size:0.75rem; color:#94a3b8;">
+        CSA4303 IP Lab • SIMATS
+    </div>
+</div>
+
+    <header class="header">
+        <h1>♻️ Smart<span>Waste</span></h1>
+        <p>Municipal Segregation, Pickup Scheduling &amp; Dump Spot Tracking</p>
+    </header>
+    <main class="container">
+        <section class="card">
+            <h3>Schedule Waste Collection / Report Illegal Spot</h3>
+            <form onsubmit="schedulePickup(event)">
+                <div class="row">
+                    <div>
+                        <label>Waste Category *</label>
+                        <select id="wasteType">
+                            <option value="Dry Recyclable (Paper/Plastic/Glass)">Dry Recyclable (Paper/Plastic/Glass)</option>
+                            <option value="Wet Biodegradable Organic">Wet Biodegradable Kitchen Waste</option>
+                            <option value="E-Waste & Electronics">E-Waste & Old Electronics</option>
+                            <option value="Construction & Debris">Construction & Heavy Debris</option>
+                            <option value="Illegal Dump Spot Alert">Report Illegal Dumping Spot</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label>Ward / Locality *</label>
+                        <input type="text" id="wasteLoc" required placeholder="e.g. Ward 18, Saveetha Nagar">
+                    </div>
+                </div>
+                <div class="row">
+                    <div>
+                        <label>Pickup Date *</label>
+                        <input type="date" id="pickupDate" required>
+                    </div>
+                    <div>
+                        <label>Resident Phone *</label>
+                        <input type="tel" id="resPhone" required pattern="[0-9]{10}" placeholder="9876543210">
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary">Schedule Municipal Truck Dispatch</button>
+            </form>
+        </section>
+        <section class="card" style="margin-top:20px;">
+            <h3>Active Municipal Pickup Queue</h3>
+            <div id="pickupList"></div>
+        </section>
+    </main>
+    <div id="toast" class="toast"></div>
+    <script src="script.js"></script>
+</body>
+</html>

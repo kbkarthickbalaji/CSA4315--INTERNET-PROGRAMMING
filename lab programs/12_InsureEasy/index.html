@@ -1,0 +1,40 @@
+<!doctype html><html><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><link rel=stylesheet href=../style.css></head><body>
+<!-- Top Navigation Bar for Seamless Hub Access -->
+<div style="background:#0f172a; color:#f8fafc; padding:10px 16px; font-family:sans-serif; font-size:0.85rem; display:flex; justify-content:space-between; align-items:center; border-bottom:2px solid #0284c7; position:sticky; top:0; z-index:9999;">
+    <div>
+        <a href="../index.html" style="color:#38bdf8; text-decoration:none; font-weight:bold; display:inline-flex; align-items:center; gap:6px;">
+            🏠 ← Back to All Experiments (1-46)
+        </a>
+    </div>
+    <div>
+        <strong>Experiment 12:</strong> InsureEasy Online Insurance Management
+    </div>
+    <div style="font-size:0.75rem; color:#94a3b8;">
+        CSA4303 IP Lab • SIMATS
+    </div>
+</div>
+<script src=../common.js></script><script>
+const POL=Store('ie:policies',[]),AL=Store('ie:alerts',[]);let U;
+const cust=()=>Auth.list().filter(u=>u.role=='user'&&u.agentId==U.id),nm=id=>Auth.list().find(u=>u.id==id)?.name||'?';
+const soon=()=>{const d=new Date();d.setDate(d.getDate()+7);return d.toISOString().slice(0,10)};
+const myPol=()=>POL.all().filter(p=>p.agentId==U.id);
+const msg=p=>`Dear ${nm(p.userId)}, your ${p.plan} premium of ${inr(p.premium)} ${p.dueDate<today()?'was due on':'is due on'} ${p.dueDate}. Please pay to keep your policy active. - InsureEasy`;
+function aAgents(){view(`<div class=card><h2>Agents</h2>${table([['Name',a=>esc(a.name)],['Username',a=>esc(a.username)],['Phone',a=>esc(a.phone||'-')],['Customers',a=>Auth.list().filter(u=>u.agentId==a.id).length],['Policies',a=>POL.all().filter(p=>p.agentId==a.id).length],['Status',a=>a.approved===false?'<b class=err>Pending</b>':'<b class=ok>Approved</b>'],['',a=>a.approved===false?`<button onclick="S.ap('${a.id}',true)">Approve</button>`:`<button onclick="S.ap('${a.id}',false)">Revoke</button>`]],Auth.list().filter(u=>u.role=='agent'))}</div>`)}
+function customers(){view(`<div class=card><h2>Create customer</h2><form id=f class=grid><label>Name<input name=name required></label><label>Username<input name=username required></label><label>Password<input name=password required></label><label>Phone<input name=phone required></label><label>Email<input type=email name=email></label><button>Create</button></form></div><div class=card><h2>My customers</h2>${table([['Name',u=>esc(u.name)],['Username',u=>esc(u.username)],['Phone',u=>esc(u.phone)],['Email',u=>esc(u.email||'-')],['',u=>`<button onclick="S.edit('${u.id}')">Edit</button> <button onclick="S.delC('${u.id}')">Delete</button>`]],cust())}</div>`);
+ onForm('#f',v=>{if(Auth.find(v.username,'user'))return toast('Username taken');Auth.add({...v,role:'user',agentId:U.id});customers()})}
+function policies(){view(`<div class=card><h2>Add policy</h2>${cust().length?`<form id=f class=grid><label>Customer<select name=userId>${cust().map(u=>`<option value=${u.id}>${esc(u.name)}</option>`).join('')}</select></label><label>Type<select name=type>${opts(['Health','Auto','Home'])}</select></label><label>Plan name<input name=plan required></label><label>Premium (₹)<input type=number name=premium required></label><label>Frequency<select name=freq>${opts(['Monthly','Yearly'])}</select></label><label>Next due date<input type=date name=dueDate required></label><button>Add</button></form>`:'<p>Create a customer first.</p>'}</div><div class=card><h2>Policies</h2>${table([['Customer',p=>esc(nm(p.userId))],['Type',p=>p.type],['Plan',p=>esc(p.plan)],['Premium',p=>inr(p.premium)+' / '+p.freq],['Due',p=>p.dueDate],['',p=>`<button onclick="S.pe('${p.id}')">Edit premium</button> <button onclick="S.delP('${p.id}')">Delete</button>`]],myPol())}</div>`);
+ if(cust().length)onForm('#f',v=>{POL.add({...v,premium:+v.premium,agentId:U.id});policies()})}
+function alerts(){const due=myPol().filter(p=>p.dueDate<=soon());view(`<div class=card><h2>Premiums due in 7 days / overdue</h2>${table([['Customer',p=>esc(nm(p.userId))],['Plan',p=>esc(p.plan)],['Due',p=>p.dueDate<today()?`<b class=err>${p.dueDate} (overdue)</b>`:p.dueDate],['',p=>`<button onclick="S.sms('${p.id}')">Send SMS alert</button>`]],due)}${due.length?'<p><button onclick="S.smsAll()">Send to all</button></p>':''}</div><div class=card><h2>SMS sent</h2>${table([['Time',a=>esc(a.date)],['To',a=>esc(nm(a.userId))],['Message',a=>esc(a.msg)]],AL.all().filter(a=>a.agentId==U.id).reverse())}</div>`)}
+function mine(){view(`<div class=card><h2>My policies</h2>${table([['Type',p=>p.type],['Plan',p=>esc(p.plan)],['Premium',p=>inr(p.premium)+' / '+p.freq],['Next due',p=>p.dueDate<today()?`<b class=err>${p.dueDate} (overdue)</b>`:p.dueDate],['Last paid',p=>p.lastPaid||'-'],['',p=>`<button onclick="S.pay('${p.id}')">Pay premium</button>`]],POL.all().filter(p=>p.userId==U.id))}</div>`)}
+function inbox(){view(`<div class=card><h2>SMS alerts</h2>${table([['Received',a=>esc(a.date)],['Message',a=>esc(a.msg)]],AL.all().filter(a=>a.userId==U.id).reverse())}</div>`)}
+const send=p=>AL.add({userId:p.userId,policyId:p.id,agentId:U.id,msg:msg(p),date:new Date().toLocaleString()});
+window.S={ap(id,v){Auth.update(id,{approved:v});aAgents()},
+ edit(id){const u=Auth.list().find(x=>x.id==id),n=prompt('Name',u.name),p=prompt('Phone',u.phone);if(n)Auth.update(id,{name:n,phone:p||u.phone});customers()},
+ delC(id){if(confirm('Delete customer and policies?')){Auth.remove(id);POL.save(POL.all().filter(p=>p.userId!=id));customers()}},
+ pe(id){const v=+prompt('New premium',POL.get(id).premium);if(v>0){POL.upd(id,{premium:v});policies()}},delP(id){POL.del(id);policies()},
+ sms(id){send(POL.get(id));toast('SMS sent');alerts()},smsAll(){myPol().filter(p=>p.dueDate<=soon()).forEach(send);toast('SMS sent to all');alerts()},
+ pay(id){const p=POL.get(id);if(confirm('Pay '+inr(p.premium)+' now?')){POL.upd(id,{dueDate:addM(p.dueDate,p.freq=='Monthly'?1:12),lastPaid:today()});mine()}}};
+boot({app:'insureeasy',title:'InsureEasy – Insurance Management',roles:[{id:'user',label:'Policy holder'},{id:'agent',label:'Agent',reg:true,approval:true},{id:'admin',label:'Admin'}],seed:[{username:'admin',password:'admin123',role:'admin',name:'Admin'}],
+ hint:'Admin: admin / admin123. Agents register and need admin approval. Policy holders get their login from an agent.',
+ menu:{admin:()=>[['Agents',aAgents]],agent:u=>{U=u;return[['Customers',customers],['Policies',policies],['SMS alerts',alerts]]},user:u=>{U=u;return[['My policies',mine],['SMS alerts',inbox]]}}});
+</script></body></html>

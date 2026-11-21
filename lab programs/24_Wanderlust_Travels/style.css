@@ -1,0 +1,11 @@
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, sans-serif; }
+body { background: #f0fdfa; color: #134e4a; }
+.header { background: #0f766e; color: white; padding: 18px 6%; text-align: center; }
+.header span { color: #5eead4; }
+.container { max-width: 960px; margin: 24px auto; padding: 0 16px; }
+.tour-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 18px; }
+.tour-card { background: white; border-radius: 8px; padding: 18px; border: 1px solid #ccfbf1; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+.tour-dur { color: #0d9488; font-weight: 700; font-size: 0.8rem; }
+.tour-price { font-size: 1.25rem; font-weight: 800; color: #115e59; margin: 10px 0; }
+.btn { width: 100%; padding: 10px; background: #0f766e; color: white; border: none; border-radius: 6px; font-weight: 700; cursor: pointer; }
+.toast { position: fixed; bottom: 20px; right: 20px; background: #0f766e; color: white; padding: 10px 18px; border-radius: 6px; display: none; }

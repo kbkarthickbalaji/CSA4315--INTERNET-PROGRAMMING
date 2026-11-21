@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Beauty Parlour Appointment Booking</title><link rel="stylesheet" href="style.css"></head>
+<body>
+<!-- Top Navigation Bar for Seamless Hub Access -->
+<div style="background:#0f172a; color:#f8fafc; padding:10px 16px; font-family:sans-serif; font-size:0.85rem; display:flex; justify-content:space-between; align-items:center; border-bottom:2px solid #0284c7; position:sticky; top:0; z-index:9999;">
+    <div>
+        <a href="../index.html" style="color:#38bdf8; text-decoration:none; font-weight:bold; display:inline-flex; align-items:center; gap:6px;">
+            🏠 ← Back to All Experiments (1-46)
+        </a>
+    </div>
+    <div>
+        <strong>Experiment 07:</strong> Beauty Parlour Appointment Booking
+    </div>
+    <div style="font-size:0.75rem; color:#94a3b8;">
+        CSA4303 IP Lab • SIMATS
+    </div>
+</div>
+<header><h1>Beauty Parlour Appointment Booking</h1><p>Browse salons, services and stylist profiles; choose stylist/date/time; manage upcoming/history appointments; reschedule/cancel; admin manages schedules.</p><nav><a href="#features">Features</a><a href="#main">Explore / Book</a><a href="#records">My dashboard</a><a href="#admin">Admin demo</a></nav></header>
+<main><div class="hero"><h2>Welcome</h2><p>This is a responsive front-end lab demonstration based on Experiment 07. Use the forms to try the workflow.</p><span class="tag">HTML · CSS · JavaScript</span></div>
+<section id="features"><h2>Key features</h2><div class="grid"><article class="card"><h3>Services and stylists</h3><p class="muted">Browse sample beauty services, stylists and prices.</p></article><article class="card"><h3>Appointment calendar</h3><p class="muted">Book an available sample time slot and manage appointments.</p></article><article class="card"><h3>Salon manager</h3><p class="muted">Add services, block time slots and review appointments.</p></article></div></section>
+<div id="main" style="display:grid;gap:16px;margin-top:20px">
+<section class="panel"><h2>Beauty services and stylists</h2><div class="grid"><article class="item"><h3>Haircut & styling</h3><p>From ₹500 · Stylist: Ananya</p></article><article class="item"><h3>Facial</h3><p>From ₹900 · Stylist: Meera</p></article><article class="item"><h3>Manicure</h3><p>From ₹400 · Stylist: Divya</p></article><article class="item"><h3>Bridal makeup</h3><p>From ₹4,500 · Stylist: Priya</p></article></div></section>
+<section class="panel"><h2>Book an appointment</h2><form id="demoForm"><label>Customer name / service</label><input name="title" required placeholder="Your name - Haircut"><label>Stylist</label><select id="stylist"><option>Ananya</option><option>Meera</option><option>Divya</option><option>Priya</option></select><label>Date</label><input id="apptDate" type="date" required><label>Available sample time</label><select id="apptTime"><option>10:00 AM</option><option>11:00 AM</option><option>12:00 PM</option><option>2:00 PM</option><option>3:00 PM</option><option>4:00 PM</option></select><label>Additional details</label><textarea name="detail" required placeholder="Stylist, date, time and notes"></textarea><input type="hidden" name="status" value="Appointment booked (demo)"><button>Book appointment</button></form></section></div>
+<section id="records" class="panel" style="margin-top:18px"><h2>My dashboard / saved records</h2><div id="records"></div><div class="actions"><button class="secondary" onclick="resetDemo()">Clear demo data</button></div></section>
+<section id="admin" class="panel" style="margin-top:18px"><h2>Admin panel (front-end demo)</h2><p class="muted">Administrative changes below are stored only in this browser. No real account or server is connected.</p><form id="adminForm"><label>Item / setting</label><input name="title" required placeholder="Service, room, bus, product, schedule..."><label>Details / updated value</label><input name="detail" required placeholder="Enter details"><input type="hidden" name="status" value="Admin update"><button>Save admin update</button></form></section>
+<div id="message"></div><div class="notice warning"><strong>Important:</strong> This is a client-side academic demonstration. Real authentication, database storage, live inventory, payment gateway, email/SMS notifications and production security require a server and trusted service integrations. Do not enter real passwords or payment details.</div>
+</main><footer>Internet Programming Lab · Experiment 07 · Responsive HTML/CSS/JavaScript demo</footer><script src="script.js"></script></body></html>

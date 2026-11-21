@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Flight Reservation System</title><link rel="stylesheet" href="style.css"></head>
+<body>
+<!-- Top Navigation Bar for Seamless Hub Access -->
+<div style="background:#0f172a; color:#f8fafc; padding:10px 16px; font-family:sans-serif; font-size:0.85rem; display:flex; justify-content:space-between; align-items:center; border-bottom:2px solid #0284c7; position:sticky; top:0; z-index:9999;">
+    <div>
+        <a href="../index.html" style="color:#38bdf8; text-decoration:none; font-weight:bold; display:inline-flex; align-items:center; gap:6px;">
+            🏠 ← Back to All Experiments (1-46)
+        </a>
+    </div>
+    <div>
+        <strong>Experiment 05:</strong> Flight Reservation System
+    </div>
+    <div style="font-size:0.75rem; color:#94a3b8;">
+        CSA4303 IP Lab • SIMATS
+    </div>
+</div>
+<header><h1>Flight Reservation System</h1><p>Search flights by destination, date and class; choose seats; enter passenger details; create demo e-ticket; view, print or cancel bookings.</p><nav><a href="#features">Features</a><a href="#main">Explore / Book</a><a href="#records">My dashboard</a><a href="#admin">Admin demo</a></nav></header>
+<main><div class="hero"><h2>Welcome</h2><p>This is a responsive front-end lab demonstration based on Experiment 05. Use the forms to try the workflow.</p><span class="tag">HTML · CSS · JavaScript</span></div>
+<section id="features"><h2>Key features</h2><div class="grid"><article class="card"><h3>Flight search</h3><p class="muted">Search sample flights with indicative fares and seat counts.</p></article><article class="card"><h3>Booking</h3><p class="muted">Select a flight and seat, then create a local demo booking.</p></article><article class="card"><h3>My tickets</h3><p class="muted">View, print and cancel locally stored demo tickets.</p></article></div></section>
+<div id="main" style="display:grid;gap:16px;margin-top:20px">
+<section class="panel"><h2>Search flights</h2><form id="searchForm" class="grid"><div><label>From</label><input id="from" required></div><div><label>Destination</label><input id="to" required></div><div><label>Date</label><input id="journey" type="date" required></div><div><label>Class</label><select id="class"><option>Economy</option><option>Premium Economy</option><option>Business</option></select></div><button>Search flights</button></form><div id="searchResults"></div></section>
+<section class="panel"><h2>Passenger and ticket</h2><form id="demoForm"><label>Passenger / flight</label><input name="title" required placeholder="Passenger name - Flight number"><label>Seat and travel details</label><input name="detail" required placeholder="Seat 12A, route and date"><input type="hidden" name="status" value="E-ticket (demo)"><button>Book demo flight</button></form></section></div>
+<section id="records" class="panel" style="margin-top:18px"><h2>My dashboard / saved records</h2><div id="records"></div><div class="actions"><button class="secondary" onclick="resetDemo()">Clear demo data</button></div></section>
+<section id="admin" class="panel" style="margin-top:18px"><h2>Admin panel (front-end demo)</h2><p class="muted">Administrative changes below are stored only in this browser. No real account or server is connected.</p><form id="adminForm"><label>Item / setting</label><input name="title" required placeholder="Service, room, bus, product, schedule..."><label>Details / updated value</label><input name="detail" required placeholder="Enter details"><input type="hidden" name="status" value="Admin update"><button>Save admin update</button></form></section>
+<div id="message"></div><div class="notice warning"><strong>Important:</strong> This is a client-side academic demonstration. Real authentication, database storage, live inventory, payment gateway, email/SMS notifications and production security require a server and trusted service integrations. Do not enter real passwords or payment details.</div>
+</main><footer>Internet Programming Lab · Experiment 05 · Responsive HTML/CSS/JavaScript demo</footer><script src="script.js"></script></body></html>

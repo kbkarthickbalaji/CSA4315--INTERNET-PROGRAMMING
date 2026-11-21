@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WanderChronicles - Travel Blog</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<!-- Top Navigation Bar for Seamless Hub Access -->
+<div style="background:#0f172a; color:#f8fafc; padding:10px 16px; font-family:sans-serif; font-size:0.85rem; display:flex; justify-content:space-between; align-items:center; border-bottom:2px solid #0284c7; position:sticky; top:0; z-index:9999;">
+    <div>
+        <a href="../index.html" style="color:#38bdf8; text-decoration:none; font-weight:bold; display:inline-flex; align-items:center; gap:6px;">
+            🏠 ← Back to All Experiments (1-46)
+        </a>
+    </div>
+    <div>
+        <strong>Experiment 41:</strong> Travel Blog & Adventure Website
+    </div>
+    <div style="font-size:0.75rem; color:#94a3b8;">
+        CSA4303 IP Lab • SIMATS
+    </div>
+</div>
+
+    <header class="header">
+        <h1>🧭 Wander<span>Chronicles</span></h1>
+        <p>Adventures, Trekking Trails &amp; Cultural Discoveries</p>
+    </header>
+    <main class="container">
+        <article class="blog-card">
+            <span class="blog-date">November 2026 • 8 min read</span>
+            <h2>Chasing the Northern Lights in Ladakh: High-Altitude Winter Diary</h2>
+            <p>From frozen Pangong Lake to crossing Khardung La in bone-chilling subzero winds, experiencing the pristine Himalayan winter skies...</p>
+        </article>
+        <section class="card" style="margin-top:20px;">
+            <h3>Reader Comment Log</h3>
+            <form onsubmit="postComment(event)" style="margin-bottom:14px;">
+                <input type="text" id="comAuthor" required placeholder="Your Name" style="margin-bottom:8px;">
+                <textarea id="comText" rows="2" required placeholder="Share your travel thoughts..."></textarea>
+                <button type="submit" class="btn">Post Reader Comment</button>
+            </form>
+            <div id="commentList"></div>
+        </section>
+    </main>
+    <div id="toast" class="toast"></div>
+    <script src="script.js"></script>
+</body>
+</html>

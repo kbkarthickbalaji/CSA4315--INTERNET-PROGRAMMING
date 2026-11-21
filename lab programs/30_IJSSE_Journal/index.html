@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IJSSE - International Journal of Scientific Excellence</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<!-- Top Navigation Bar for Seamless Hub Access -->
+<div style="background:#0f172a; color:#f8fafc; padding:10px 16px; font-family:sans-serif; font-size:0.85rem; display:flex; justify-content:space-between; align-items:center; border-bottom:2px solid #0284c7; position:sticky; top:0; z-index:9999;">
+    <div>
+        <a href="../index.html" style="color:#38bdf8; text-decoration:none; font-weight:bold; display:inline-flex; align-items:center; gap:6px;">
+            🏠 ← Back to All Experiments (1-46)
+        </a>
+    </div>
+    <div>
+        <strong>Experiment 30:</strong> IJSSE Academic Journal Website
+    </div>
+    <div style="font-size:0.75rem; color:#94a3b8;">
+        CSA4303 IP Lab • SIMATS
+    </div>
+</div>
+
+    <header class="header">
+        <h1>📖 IJSSE <span>Journal</span></h1>
+        <p>International Journal of Scientific and Social Excellence (ISSN: 2581-9921)</p>
+    </header>
+    <main class="container">
+        <section class="card">
+            <h3>Online Manuscript Paper Submission</h3>
+            <form onsubmit="submitPaper(event)">
+                <div class="row">
+                    <div>
+                        <label>Lead Author Name *</label>
+                        <input type="text" id="paperAuthor" required placeholder="e.g. Karthick Balaji">
+                    </div>
+                    <div>
+                        <label>Research Domain *</label>
+                        <select id="paperDomain"><option>Computer Science &amp; AI</option><option>Internet &amp; Web Systems</option><option>Applied Electronics</option></select>
+                    </div>
+                </div>
+                <div>
+                    <label>Manuscript Title *</label>
+                    <input type="text" id="paperTitle" required placeholder="Full title of your research paper">
+                </div>
+                <div style="margin-top:10px;">
+                    <label>Abstract (Max 250 Words) *</label>
+                    <textarea rows="4" id="paperAbstract" required placeholder="Summarize objectives, methodology, key findings..."></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary" style="margin-top:14px;">Upload &amp; Submit Manuscript</button>
+            </form>
+        </section>
+        <section class="card" style="margin-top:20px;">
+            <h3>Recently Accepted &amp; Published Research Papers</h3>
+            <div id="papersList"></div>
+        </section>
+    </main>
+    <div id="toast" class="toast"></div>
+    <script src="script.js"></script>
+</body>
+</html>

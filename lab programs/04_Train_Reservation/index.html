@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Train Reservation System</title><link rel="stylesheet" href="style.css"></head>
+<body>
+<!-- Top Navigation Bar for Seamless Hub Access -->
+<div style="background:#0f172a; color:#f8fafc; padding:10px 16px; font-family:sans-serif; font-size:0.85rem; display:flex; justify-content:space-between; align-items:center; border-bottom:2px solid #0284c7; position:sticky; top:0; z-index:9999;">
+    <div>
+        <a href="../index.html" style="color:#38bdf8; text-decoration:none; font-weight:bold; display:inline-flex; align-items:center; gap:6px;">
+            🏠 ← Back to All Experiments (1-46)
+        </a>
+    </div>
+    <div>
+        <strong>Experiment 04:</strong> Train Reservation System
+    </div>
+    <div style="font-size:0.75rem; color:#94a3b8;">
+        CSA4303 IP Lab • SIMATS
+    </div>
+</div>
+<header><h1>Train Reservation System</h1><p>Search trains by route/date/class, view sample seat status, enter passenger details, generate a demo PNR, check PNR and cancel a reservation.</p><nav><a href="#features">Features</a><a href="#main">Explore / Book</a><a href="#records">My dashboard</a><a href="#admin">Admin demo</a></nav></header>
+<main><div class="hero"><h2>Welcome</h2><p>This is a responsive front-end lab demonstration based on Experiment 04. Use the forms to try the workflow.</p><span class="tag">HTML · CSS · JavaScript</span></div>
+<section id="features"><h2>Key features</h2><div class="grid"><article class="card"><h3>Train search</h3><p class="muted">Search sample trains by origin, destination, date and class.</p></article><article class="card"><h3>PNR status</h3><p class="muted">Generate a local demo PNR and look it up later.</p></article><article class="card"><h3>Cancellation</h3><p class="muted">Cancel a demo ticket and show an illustrative refund estimate.</p></article></div></section>
+<div id="main" style="display:grid;gap:16px;margin-top:20px">
+<section class="panel"><h2>Search trains</h2><form id="searchForm" class="grid"><div><label>From station</label><input id="from" required></div><div><label>To station</label><input id="to" required></div><div><label>Journey date</label><input id="journey" type="date" required></div><div><label>Class</label><select id="class"><option>2S</option><option>SL</option><option>3A</option><option>2A</option><option>1A</option></select></div><button>Search trains</button></form><div id="searchResults"></div></section>
+<section class="panel"><h2>Passenger reservation</h2><form id="demoForm"><label>Passenger / train</label><input name="title" required placeholder="Passenger name - Train name"><label>Journey details</label><input name="detail" required placeholder="Route, date, class"><input type="hidden" name="status" value="Confirmed (demo)"><button>Generate demo PNR</button></form><p class="muted">A local demo reference is stored; it is not a railway-issued PNR.</p></section></div>
+<section id="records" class="panel" style="margin-top:18px"><h2>My dashboard / saved records</h2><div id="records"></div><div class="actions"><button class="secondary" onclick="resetDemo()">Clear demo data</button></div></section>
+<section id="admin" class="panel" style="margin-top:18px"><h2>Admin panel (front-end demo)</h2><p class="muted">Administrative changes below are stored only in this browser. No real account or server is connected.</p><form id="adminForm"><label>Item / setting</label><input name="title" required placeholder="Service, room, bus, product, schedule..."><label>Details / updated value</label><input name="detail" required placeholder="Enter details"><input type="hidden" name="status" value="Admin update"><button>Save admin update</button></form></section>
+<div id="message"></div><div class="notice warning"><strong>Important:</strong> This is a client-side academic demonstration. Real authentication, database storage, live inventory, payment gateway, email/SMS notifications and production security require a server and trusted service integrations. Do not enter real passwords or payment details.</div>
+</main><footer>Internet Programming Lab · Experiment 04 · Responsive HTML/CSS/JavaScript demo</footer><script src="script.js"></script></body></html>

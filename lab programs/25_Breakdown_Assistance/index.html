@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RoadRescue - On-Road Breakdown Assistance</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<!-- Top Navigation Bar for Seamless Hub Access -->
+<div style="background:#0f172a; color:#f8fafc; padding:10px 16px; font-family:sans-serif; font-size:0.85rem; display:flex; justify-content:space-between; align-items:center; border-bottom:2px solid #0284c7; position:sticky; top:0; z-index:9999;">
+    <div>
+        <a href="../index.html" style="color:#38bdf8; text-decoration:none; font-weight:bold; display:inline-flex; align-items:center; gap:6px;">
+            🏠 ← Back to All Experiments (1-46)
+        </a>
+    </div>
+    <div>
+        <strong>Experiment 25:</strong> On-Road Vehicle Breakdown Assistance
+    </div>
+    <div style="font-size:0.75rem; color:#94a3b8;">
+        CSA4303 IP Lab • SIMATS
+    </div>
+</div>
+
+    <header class="header">
+        <h1>🛠️ Road<span>Rescue</span></h1>
+        <p>24x7 Emergency On-Road Breakdown &amp; Towing Assistance</p>
+    </header>
+    <main class="container">
+        <section class="card">
+            <h3>Request Immediate Roadside Mechanic</h3>
+            <form onsubmit="requestHelp(event)">
+                <div class="row">
+                    <div>
+                        <label>Vehicle Type *</label>
+                        <select id="vType"><option>Two Wheeler / Scooter</option><option selected>Four Wheeler / Car</option><option>Commercial Van / Lorry</option></select>
+                    </div>
+                    <div>
+                        <label>Breakdown Issue *</label>
+                        <select id="issueType"><option>Flat Tyre / Puncture</option><option>Battery Jumpstart Required</option><option>Engine Overheating / Stall</option><option>Fuel Empty Delivery</option><option>Flatbed Towing Needed</option></select>
+                    </div>
+                </div>
+                <div>
+                    <label>Your Current Location / Highway Kilometer *</label>
+                    <input type="text" id="curLoc" required placeholder="e.g. NH-48 Highway, Near Saveetha University Gate">
+                </div>
+                <button type="submit" class="btn btn-primary" style="margin-top:14px;">Find Nearest Available Mechanic (SOS)</button>
+            </form>
+        </section>
+        <section class="card" style="margin-top:20px;">
+            <h3>Nearby Verified Mechanics On-Call</h3>
+            <div id="mechList"></div>
+        </section>
+    </main>
+    <div id="toast" class="toast"></div>
+    <script src="script.js"></script>
+</body>
+</html>
